@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# TMD TC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*Didn't want to use any keywords to make this easily searchable.*
 
-## Available Scripts
+This is a small web app that uses [OpenWeather API](https://openweathermap.org/api) in a React application.
+The app will show current and forecasted weather.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+* Use react hooks not classes
+* MobX state management
+* Filter by city name
+* Use geolocation to populate input field and send the first request
+* Save user's location preference(s) for future session
+* Make the UI look good; I'll use Material UI-react for this
+* Use Jest for testing
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Progress
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+I plan to do this within 5 days and without having to go over a daily time limit.
+* First and second day for planning the app and building the basic features
+  * Planning what features need what data
+  * Learning the API, creating the necessary API calls
+  * Building out different types/models for different data
+  * Actually building out the application
+* Third day for building the UI out
+  * Sketch out the components and how they fit together
+  * Programming out the components
+* Fourth day for testing with Jest
+  * Learn Jest
+  * Apply Jest
+* Fifth day for anything extra I want to add (optional)
+  * Optimizations with loading
+  * Making themes or styling look better
+  * Maybe self-host it so the application is easily useable haha.
 
-### `npm test`
+I will also keep track of the amount of hours I spend on each portion of this project for my own sake; in my [PROGRESS](./PROGRESS.md) file.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Disclaimer
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* I am quite new to React, but my prior experiences in frontend and backend will be useful.
+* Concerns I have are using old and unsafe React APIs or using old and unmaintainable packages.
+* I also am also quite new to building UI components so that will be a challenge for me, I think building the React app should be easier for me.
+* I will be referencing some pervious React learning-projects I've being using to learn React with.
+* Finally my spelling could use some work. :D
