@@ -26,3 +26,14 @@ Ideas for the overall design of the app e.g where should data be stored; what sh
 ## Data Flow UX
 
 I'm quite inexperienced in UX but I like to make flow diagrams.
+
+Found in [docs/weather-app-ux-design](./docs/../weather-app-ux-design.svg):![weather-app-ux-design.svg](./weather-app-ux-design.svg)
+
+## Types and models
+
+- `latlon`: contains lat and lon keys with number values
+- `local-weather`: weather given by the API with the specific `latlon` query
+- `locations`: an map of `latlon`'s to `local-weather`
+- `location-order`: an array of `latlon`'s in the order the user wants
+
+Perhaps `latlon` can be incorporated into another type which has location information like City/State

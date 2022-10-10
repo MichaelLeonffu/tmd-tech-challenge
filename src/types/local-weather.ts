@@ -1,0 +1,101 @@
+import ILatLon from "./latlon";
+
+export default interface ILocalWeather {
+    /** Not sure if this is the best way to do this... */
+    lat: ILatLon['lat'],
+    lon: ILatLon['lon'],
+    timezone: string,
+    timezone_offset: number,
+    current: {
+        dt: Date,
+        sunrise: Date,
+        sunset: Date,
+        
+        temp: number,
+        feels_like: number,
+        pressure: number,
+        humidity: number,
+        dew_point: number,
+        uvi: number,
+        clouds: number,
+        visibility: number,
+        wind_speed: number,
+        wind_deg: number,
+        wind_gust: number,
+        weather: {
+            id: number,
+            main: string,
+            description: string,
+            icon: string,
+        }[],
+    },
+    /** Excluded */
+    // minutely: {
+    //     dt: Date,
+    //     precipitation: number,
+    // }[],
+    hourly: {
+        dt: Date,
+        temp: number,
+        feels_like: number,
+        pressure: number,
+        humidity: number,
+        dew_point: number,
+        uvi: number,
+        clouds: number,
+        visibility: number,
+        wind_speed: number,
+        wind_deg: number,
+        wind_gust: number,
+        weather: {
+            id: number,
+            main: string,
+            description: string,
+            icon: string,
+        }[],
+        /** Not sure what this is */
+        pop: number,
+    }[],
+    daily: {
+        dt: Date,
+        sunrise: Date,
+        sunset: Date,
+        moonrise: Date,
+        moonset: Date,
+        moon_phase: number,
+        temp: {
+            day: number,
+            min: number,
+            max: number,
+            night: number,
+            eve: number,
+            morn: number,
+        },
+        feels_like: {
+            day: number,
+            night: number,
+            eve: number,
+            morn: number,
+        },
+        pressure: number,
+        humidity: number,
+        dew_point: number,
+        visibility: number,
+        wind_speed: number,
+        wind_deg: number,
+        wind_gust: number,
+        weather: {
+            id: number,
+            main: string,
+            description: string,
+            icon: string,
+        }[],
+        /** Not sure what this is */
+        clouds: number,
+        pop: number,
+        rain: number,
+        uvi: number,
+        /** Excluded */
+        // alerts: {}[],
+    }[],
+}

@@ -10,7 +10,8 @@ Table of contents
   - [Checkout API](#checkout-api)
   - [Preliminary UI Design](#preliminary-ui-design)
   - [Preliminary UX Design](#preliminary-ux-design)
-  - [Implement types, stores, models](#implement-types-stores-models)
+  - [Implement Types and Models](#implement-types-and-models)
+  - [Implement Stores and Api calls](#implement-stores-and-api-calls)
 - [Day 2: Tuesday (Base App)](#day-2-tuesday-base-app)
   - [Goal: something Time: something-something](#goal-something-time-something-something)
   - [Goal: something Time: something-something](#goal-something-time-something-something-1)
@@ -57,7 +58,15 @@ If there is time I'll make the UI more interesting
 - Sketched out a UX design in Google Drawings:
 - Found in [docs/weather-app-ux-design](./docs/../weather-app-ux-design.svg):![weather-app-ux-design.svg](./weather-app-ux-design.svg)
 
-### Implement types, stores, models
+### Implement Types and Models
+**45 Minutes**
+- Created Types: `touch latlon.ts local-weather.ts` in [types](../src/types/)
+- Created Models: `touch latlon.ts local-weather.ts` in [models](../src/models/)
+- Took longer than I expected; still very new to how to make proper maintainable organization of types and data.
+- I should really implement some tests to test end-to-end of this app.
+
+### Implement Stores and Api calls
+**45 Minutes**
 
 
 ## Day 2: Tuesday (Base App)
