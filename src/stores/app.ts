@@ -1,5 +1,8 @@
 import ILatLon from "../types/latlon";
+import ILocalWeather from "../types/local-weather";
+import LatLon from "../models/latlon";
 import LocalWeather from "../models/local-weather";
+// import Geolocation from "../models/geolocation";
 
 import { 
     action,
@@ -12,12 +15,27 @@ export default class AppStore {
     /** As referenced in /docs/NOTES.md#Types-and-models */
     
     /** All locations data stored */
-    locations = observable.map<ILatLon, LocalWeather>();
+    locations = observable.map<number, LatLon>();
+    localWeathers = observable.map<number, LocalWeather>();
+    // geolocations = observable.map<number, Geolocation>();
+
     /** Locations in order, note: sets are in insertion order; contain no duplicates */
-    locationOrder = observable.set<ILatLon>();
+    locationOrder = observable.set<number>();
 
     constructor() {
         makeObservable(this);
+    }
+
+    /**
+     * 
+     * @param latLon a ILatLon to search locations for
+     * @returns a LocationId unique to this LatLon or -1 if it doesn't exist
+     */
+    getLocationId(latLon: ILatLon) {
+        const res = Array.from(this.locations.entries()).find(([id, aLatLon]: [number, ILatLon]) => {
+            return LatLon.equals(aLatLon, latLon);
+        });
+        return res === undefined ? -1 : res[0];
     }
 
     /**
@@ -29,8 +47,16 @@ export default class AppStore {
      * @param latLon a ILatLon type, the LatLon of the provided localWeather
      * @param localWeather a ILocalWeather type, the LocalWeather data
      */
-    @action load(latLon: ILatLon, localWeather: LocalWeather) {
-        this.locations.set(latLon, localWeather);
+    @action load(latLon: ILatLon, localWeather: ILocalWeather) {
+
+        let locationId = this.getLocationId(latLon);
+        if (locationId === -1) {
+            locationId = this.locations.size;
+            this.locations.set(locationId, new LatLon(latLon));
+            this.localWeathers.set(locationId, new LocalWeather(localWeather));
+        } else {
+            this.localWeathers.set(locationId, new LocalWeather(localWeather));
+        }
     }
 
     /**
@@ -44,9 +70,15 @@ export default class AppStore {
      * 
      * TODO: Check if this is correct and there are no deep/shallow copy issues
      * 
-     * @param locationOrder An array of ILatLon locations to show.
+     * @param locationOrder An array of number `locationIds` to show. Must not have any `locationIds` outside of `locations`
      */
-    @action reorderLocations(locationOrder: ILatLon[]) {
+    @action reorderLocations(locationOrder: number[]) {
+        const valid = locationOrder.some((locationId: number) => {
+            return !this.locations.has(locationId);
+        });
+        if (!valid) {
+            throw 'A locationId does not exist';
+        }
         this.locationOrder = observable.set(new Set(locationOrder));
     }
 

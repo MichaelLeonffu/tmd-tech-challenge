@@ -31,9 +31,20 @@ Found in [docs/weather-app-ux-design](./docs/../weather-app-ux-design.svg):![wea
 
 ## Types and models
 
+### v1
+
 - `latlon`: contains lat and lon keys with number values
 - `local-weather`: weather given by the API with the specific `latlon` query
 - `locations`: an map of `latlon`'s to `local-weather`
 - `location-order`: an array of `latlon`'s in the order the user wants
 
 Perhaps `latlon` can be incorporated into another type which has location information like City/State
+
+### v2
+
+The store contains 3 Maps and 1 Set
+- Map `locations` maps from a unique `locationId` to a `ILatLon`; contains all locations in both of the next maps.
+- Map `localWeathers` maps from a unique `locationId` to a `ILocalWeather`; there may be `locationId`s in `locations` which aren't in `localWeathers`.
+- Map `geolocations` maps from a unique `locationId` to a `IGeoWeather`; there may be `locationId`s in `locations` which aren't in `geolocations`.
+
+- Set `locationOrder` is a set of `locationId`s from `locations`.

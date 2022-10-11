@@ -9,7 +9,7 @@ export default class AppApi {
 
     /** Setup the client, later anything can use this setup to make queries to the API server */
     client = axios.create({
-        baseURL: "https://api.openweathermap.org/data/3.0/onecall",
+        baseURL: "/api/openweatherapi",
         timeout: 4000,
         params: {
             exclude: "alert,minutely",
@@ -20,14 +20,13 @@ export default class AppApi {
     constructor(private store: AppStore) {}
 
     async getLocalWeather(latLon: ILatLon) {
-        const res: ILocalWeather = await this.client.get('', {
+        const res = await this.client.get('', {
             params: {
                 /** TODO: should these be strings? */
                 lat: latLon.lat,
                 lon: latLon.lon,
             }
         });
-        let downloadedLocalWeather = new LocalWeather(res);
-        this.store.load(latLon, downloadedLocalWeather);
+        this.store.load(latLon, res.data);
     }
 }

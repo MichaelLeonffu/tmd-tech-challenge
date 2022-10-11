@@ -6,6 +6,8 @@ const cors = require("cors");
 const assert = require("assert");
 const axios = require("axios");
 
+const exampleData = require("./openweatherapi-example.json");
+
 /** Get port */
 require("dotenv").config({ path: "./.env.local" });
 const port = process.env.REACT_APP_SERVER_PORT || 6005;
@@ -54,7 +56,11 @@ apiRoutes.use("/openweatherapi", async (req, res, next) => {
     const fullUrl = "https://api.openweathermap.org/data/3.0/onecall" + query;
 
     try {
-        const owaRes = await axios.get(fullUrl);
+        // const owaRes = await axios.get(fullUrl);
+        /** So that I don't spam API calls */
+        const owaRes = {
+            data: exampleData
+        };
         res.json(owaRes.data);
     } catch (err) {
         /** Axios throws error if the response isn't a good code */

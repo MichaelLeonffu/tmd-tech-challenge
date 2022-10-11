@@ -1,15 +1,23 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppContext from "./app-context";
+import AppStore from "./stores/app";
+import AppApi from "./apis/app";
 
-console.log(process.env.REACT_APP_DEV_CLIENT_PORT);
+import HomePage from "./pages/home";
+
+const store = new AppStore();
+const api = new AppApi(store);
 
 function App() {
     return (
         <div>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/*" element={<p>home page!</p>} />
-                </Routes>
-            </BrowserRouter>
+            <AppContext.Provider value={{ store, api }}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/*" element={<HomePage />} />
+                    </Routes>
+                </BrowserRouter>
+            </AppContext.Provider>
         </div>
     );
 }

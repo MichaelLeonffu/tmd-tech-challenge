@@ -14,19 +14,24 @@ Table of contents
   - [Implement Stores and Api calls](#implement-stores-and-api-calls)
   - [Implement Express backend server](#implement-express-backend-server)
 - [Day 2: Tuesday (Base App)](#day-2-tuesday-base-app)
-  - [Goal: something Time: something-something](#goal-something-time-something-something)
-  - [Goal: something Time: something-something](#goal-something-time-something-something-1)
+  - [Test Api and Store's update](#test-api-and-stores-update)
+  - [Add Support for Geolocation: City names API](#add-support-for-geolocation-city-names-api)
+  - [Cookies Logic](#cookies-logic)
+  - [Bare Bones Components outlines](#bare-bones-components-outlines)
 - [Day 3: Wednesday (Style)](#day-3-wednesday-style)
-  - [Goal: something Time: something-something](#goal-something-time-something-something-2)
-  - [Goal: something Time: something-something](#goal-something-time-something-something-3)
+  - [Make all the components functional and display properly](#make-all-the-components-functional-and-display-properly)
 - [Day 4: Thursday (Testing)](#day-4-thursday-testing)
-  - [Goal: something Time: something-something](#goal-something-time-something-something-4)
-  - [Goal: something Time: something-something](#goal-something-time-something-something-5)
+  - [Learn and Implement Jest](#learn-and-implement-jest)
 - [Day 5: Friday (Extra!)](#day-5-friday-extra)
-  - [Goal: something Time: something-something](#goal-something-time-something-something-6)
-  - [Goal: something Time: something-something](#goal-something-time-something-something-7)
+  - [Actually I don't think I'll work on this on Friday](#actually-i-dont-think-ill-work-on-this-on-friday)
 
 ## Day 1: Monday (Base App)
+**Roughly 5 hours**
+
+I realized I spent so much time on really small issues and bugs that are a low priority.
+I got stuck making the extra backend-express server to hide the key.
+I also got stuck with some limitations of javascript, equality operators not being override-able; resulting in a bad Map.
+I was making really great progress at the start of the day but by the end of it I slowed down.
 
 ### Set up the app; Docs; Run app.
 **30 minutes**
@@ -88,36 +93,31 @@ If there is time I'll make the UI more interesting
 
 ## Day 2: Tuesday (Base App)
 
-Goals:
-- Something
+### Test Api and Store's update
+**60 Minutes**
+- Rethink how LatLon information is stored.
+  - Since Map cannot use an Object as a key then I'll make another "table" to hold key-->LatLon values. That way each LatLon has a unique id. Adding LatLon's will first check this "table"
+  - In the future this will help streamline the geolocation features as well.
+- Run the API from the app
+- Check to make sure the store is updating
 
-### Goal: something Time: something-something
+### Add Support for Geolocation: City names API
+- Add new data types, models, api calls
+- Rethink the search API
 
-### Goal: something Time: something-something
+### Cookies Logic
+
+### Bare Bones Components outlines
+- Think about C/F settings
 
 ## Day 3: Wednesday (Style)
 
-Goals:
-- Something
-
-### Goal: something Time: something-something
-
-### Goal: something Time: something-something
+### Make all the components functional and display properly
 
 ## Day 4: Thursday (Testing)
 
-Goals:
-- Something
-
-### Goal: something Time: something-something
-
-### Goal: something Time: something-something
+### Learn and Implement Jest
 
 ## Day 5: Friday (Extra!)
 
-Goals:
-- Something
-
-### Goal: something Time: something-something
-
-### Goal: something Time: something-something
+### Actually I don't think I'll work on this on Friday
