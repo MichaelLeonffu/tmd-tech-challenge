@@ -8,7 +8,7 @@ import Geolocation from "../models/geolocation";
 import { 
     action,
     makeObservable,
-    observable
+    observable,
 } from "mobx";
 
 
@@ -17,15 +17,16 @@ export default class AppStore {
     /** As referenced in /docs/NOTES.md#Types-and-models */
     
     /** All locations data stored */
-    locations = observable.map<number, ILatLon>();
-    localWeathers = observable.map<number, ILocalWeather>();
-    geolocations = observable.map<number, IGeolocation>();
+    @observable.deep locations = observable.map<number, ILatLon>();
+    @observable.deep localWeathers = observable.map<number, ILocalWeather>();
+    @observable.deep geolocations = observable.map<number, IGeolocation>();
 
     /** Locations in order, note: sets are in insertion order; contain no duplicates */
-    locationOrder = observable.set<number>();
+    @observable.deep locationOrder = observable.set<number>();
 
     constructor() {
-        makeObservable(this);
+        // makeAutoObservable(this);
+        makeObservable(this)
     }
 
     /**

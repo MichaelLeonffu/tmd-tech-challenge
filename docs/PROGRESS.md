@@ -16,7 +16,7 @@ Table of contents
 - [Day 2: Tuesday (Base App)](#day-2-tuesday-base-app)
   - [Test Api and Store's update](#test-api-and-stores-update)
   - [Add Support for Geolocation: City names API](#add-support-for-geolocation-city-names-api)
-  - [Cookies Logic](#cookies-logic)
+  - [Geolocation and Cookies Logic](#geolocation-and-cookies-logic)
   - [Bare Bones Components outlines](#bare-bones-components-outlines)
 - [Day 3: Wednesday (Style)](#day-3-wednesday-style)
   - [Make all the components functional and display properly](#make-all-the-components-functional-and-display-properly)
@@ -103,10 +103,18 @@ If there is time I'll make the UI more interesting
 
 ### Add Support for Geolocation: City names API
 **90 Minutes**
-- Add new data type: `IGeolocation`, models: `Geolocation`, api calls to geolocation api
-- Rethink the search API
+- Add new data type: `IGeolocation`, models: `Geolocation`, api calls to geolocation api.
+- Rethink the search API.
 
-### Cookies Logic
+### Geolocation and Cookies Logic
+**90 Minutes**
+- Looks like geolocation isn't too hard to get from the user (as long as they enable it and are on wifi).
+- `npm install react-cookie`; Using cookies doesn't seem too bad, I should add validation (since the user can mess with the cookies). Or I could do something fancy and take a hash of the state with some secret haha. I should add error catching to default to a working state...
+- Integrate cookies to store the Store.
+- I was stuck on this for the majority of the time. :(
+  - I think it's because the cookie I'm trying to save is too large, I could save a sessionId and the data in the backend.
+  - Or I can just save a limited amount of information in the cookies.
+- For now I should skip this section and move on, I'll come back to it later.
 
 ### Bare Bones Components outlines
 - Think about C/F settings
