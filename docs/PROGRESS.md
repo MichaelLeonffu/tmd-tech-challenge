@@ -72,11 +72,19 @@ If there is time I'll make the UI more interesting
 - Changed models to use objects as arguments; easier to pass into it. Not sure if this is good practice though.
 - Needed to find a way to store the API key secretly; It should be on the server, not put into the client.
   - Looks like this is not possible with React clients (when built) a backend server is needed to proxy the request.
-  - So I'll set up a quick express server to proxy the backend requests, this server will also serve the client
+  - So I'll set up a quick express server to proxy the backend requests, this server will also serve the client.
 
 ### Implement Express backend server
-**30 Minutes**
-
+**90 Minutes**
+- Installing more packages `npm install cors dotenv express nodemon express-http-proxy`
+- Created `touch .env server.js`; modified `package.json` for dev options
+- I want to use:
+  - `npm run dev` to start a two servers; the frontend and backend, where the backend proxies to the frontend.
+  - `npm run start` (after building) to run one server: the backend server which can serve the frontend built.
+- That took a long time. I had issues using proxy and etc; Wow backend stuff really took me a while to sort out...
+- Going to `localhost:6005/api` is the api page; and using `localhost:6005/api/openweatherapi?params=whatever` will forward
+  - the request to the openweatherapi server (by also appending the proper weather api key).
+  - This way the key stays on the server and doesn't get built into the client.
 
 ## Day 2: Tuesday (Base App)
 

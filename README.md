@@ -20,6 +20,13 @@ The app will **show current and forecasted weather**.
 Things I may want to do but might not have the time for:
 - Customizable weather panel per user's preference
 
+## Running this app:
+
+Need to create an `.env.local` file with the contents
+
+    NODE_ENV_OPEN_WEATHER_API_KEY=somekey
+    REACT_APP_SERVER_PORT=6005
+
 ## Progress
 
 I plan to do this within 5 days and without having to go over a daily time limit.
