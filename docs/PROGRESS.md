@@ -12,6 +12,7 @@ Table of contents
   - [Preliminary UX Design](#preliminary-ux-design)
   - [Implement Types and Models](#implement-types-and-models)
   - [Implement Stores and Api calls](#implement-stores-and-api-calls)
+  - [Implement Express backend server](#implement-express-backend-server)
 - [Day 2: Tuesday (Base App)](#day-2-tuesday-base-app)
   - [Goal: something Time: something-something](#goal-something-time-something-something)
   - [Goal: something Time: something-something](#goal-something-time-something-something-1)
@@ -67,6 +68,14 @@ If there is time I'll make the UI more interesting
 
 ### Implement Stores and Api calls
 **45 Minutes**
+- Since this app is small there may only be a need for 1 store. The whole page will update at once; not in parts.
+- Changed models to use objects as arguments; easier to pass into it. Not sure if this is good practice though.
+- Needed to find a way to store the API key secretly; It should be on the server, not put into the client.
+  - Looks like this is not possible with React clients (when built) a backend server is needed to proxy the request.
+  - So I'll set up a quick express server to proxy the backend requests, this server will also serve the client
+
+### Implement Express backend server
+**30 Minutes**
 
 
 ## Day 2: Tuesday (Base App)
