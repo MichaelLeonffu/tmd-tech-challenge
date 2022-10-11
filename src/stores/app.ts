@@ -1,8 +1,9 @@
 import ILatLon from "../types/latlon";
 import ILocalWeather from "../types/local-weather";
+import IGeolocation from "../types/geolocation";
 import LatLon from "../models/latlon";
 import LocalWeather from "../models/local-weather";
-// import Geolocation from "../models/geolocation";
+import Geolocation from "../models/geolocation";
 
 import { 
     action,
@@ -10,20 +11,45 @@ import {
     observable
 } from "mobx";
 
+
 export default class AppStore {
 
     /** As referenced in /docs/NOTES.md#Types-and-models */
     
     /** All locations data stored */
-    locations = observable.map<number, LatLon>();
-    localWeathers = observable.map<number, LocalWeather>();
-    // geolocations = observable.map<number, Geolocation>();
+    locations = observable.map<number, ILatLon>();
+    localWeathers = observable.map<number, ILocalWeather>();
+    geolocations = observable.map<number, IGeolocation>();
 
     /** Locations in order, note: sets are in insertion order; contain no duplicates */
     locationOrder = observable.set<number>();
 
     constructor() {
         makeObservable(this);
+    }
+
+    /**
+     * 
+     * @param latLon a ILatLon to search for
+     * @returns a Geolocation or undefined if not found
+     */
+    getGeolocation(latLon: ILatLon): IGeolocation | undefined {
+        const res = Array.from(this.locations.entries()).find(([id, aLatLon]: [number, ILatLon]) => {
+            return LatLon.equals(aLatLon, latLon);
+        });
+        return res === undefined ? undefined : this.geolocations.get(res[0]);
+    }
+
+    /**
+     * 
+     * @param latLon a ILatLon to search for
+     * @returns a LocalWeather or undefined if not found
+     */
+    getLocalWeather(latLon: ILatLon) {
+        const res = Array.from(this.locations.entries()).find(([id, aLatLon]: [number, ILatLon]) => {
+            return LatLon.equals(aLatLon, latLon);
+        });
+        return res === undefined ? undefined : this.localWeathers.get(res[0]);
     }
 
     /**
@@ -47,7 +73,7 @@ export default class AppStore {
      * @param latLon a ILatLon type, the LatLon of the provided localWeather
      * @param localWeather a ILocalWeather type, the LocalWeather data
      */
-    @action load(latLon: ILatLon, localWeather: ILocalWeather) {
+    @action loadLocalWeather(latLon: ILatLon, localWeather: ILocalWeather) {
 
         let locationId = this.getLocationId(latLon);
         if (locationId === -1) {
@@ -56,6 +82,27 @@ export default class AppStore {
             this.localWeathers.set(locationId, new LocalWeather(localWeather));
         } else {
             this.localWeathers.set(locationId, new LocalWeather(localWeather));
+        }
+    }
+
+    /**
+     * 
+     * Add a LatLon, geolocation pair to the store
+     * 
+     * Note: stored locations do not display unless in `locationOrder`
+     * 
+     * @param latLon a ILatLon type, the LatLon of the provided geolocation
+     * @param geolocation a geolocation type, the geolocation data
+     */
+    @action loadGeolocation(latLon: ILatLon, geolocation: IGeolocation) {
+
+        let locationId = this.getLocationId(latLon);
+        if (locationId === -1) {
+            locationId = this.locations.size;
+            this.locations.set(locationId, new LatLon(latLon));
+            this.geolocations.set(locationId, new Geolocation(geolocation));
+        } else {
+            this.geolocations.set(locationId, new Geolocation(geolocation));
         }
     }
 

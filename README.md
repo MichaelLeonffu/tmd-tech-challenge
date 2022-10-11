@@ -64,5 +64,6 @@ Missing features or limits of what this app can do
 - Loads all locations saved (one API per location), every time the user reloads the page.
   - If there are a lot of locations this could end up in a lot of API calls (not good for my api key haha)
   - Also this means it doesn't lazy load things.... right?...
-- Searching by location name rather than geolocations
+- ~~Searching by location name rather than geolocations~~
 - No weather alerts shown
+- Future: add feature for searching by zip code...

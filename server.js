@@ -6,7 +6,9 @@ const cors = require("cors");
 const assert = require("assert");
 const axios = require("axios");
 
-const exampleData = require("./openweatherapi-example.json");
+const exampleWeatherData = require("./openweatherapi-example.json");
+const exampleGeolocationData = require("./opengeolocationapi-example.json");
+const exampleGeolocationDirectData = require("./opengeolocationdirectapi-example.json");
 
 /** Get port */
 require("dotenv").config({ path: "./.env.local" });
@@ -49,17 +51,30 @@ apiRoutes.route("/").get(function (req, res) {
 // }));
 
 /** Creating another request */
-apiRoutes.use("/openweatherapi", async (req, res, next) => {
+apiRoutes.use("/openweatherapi/*", async (req, res, next) => {
     let query = "?appid=" + apikey;
     const proxyQuery = req.url.split('?')[1];
     query += proxyQuery ? '&' + proxyQuery : '';
-    const fullUrl = "https://api.openweathermap.org/data/3.0/onecall" + query;
+    const fullUrl = "https://api.openweathermap.org/" + req.params[0] + query;
 
     try {
         // const owaRes = await axios.get(fullUrl);
         /** So that I don't spam API calls */
+        let data = {}
+        switch (req.params[0]) {
+            case "geo/1.0/direct":
+                data = exampleGeolocationDirectData;
+                break;
+            case "geo/1.0/reverse":
+                data = exampleGeolocationData;
+                break;
+            default:
+                data = exampleWeatherData
+                break;
+        }
+
         const owaRes = {
-            data: exampleData
+            data: data
         };
         res.json(owaRes.data);
     } catch (err) {

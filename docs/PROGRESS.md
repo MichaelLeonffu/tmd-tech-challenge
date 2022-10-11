@@ -102,7 +102,8 @@ If there is time I'll make the UI more interesting
 - Check to make sure the store is updating
 
 ### Add Support for Geolocation: City names API
-- Add new data types, models, api calls
+**90 Minutes**
+- Add new data type: `IGeolocation`, models: `Geolocation`, api calls to geolocation api
 - Rethink the search API
 
 ### Cookies Logic
