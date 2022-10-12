@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import Container from "@mui/material/Container";
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -40,6 +39,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "inherit",
+    alignItems: "center",
     "& .MuiInputBase-input": {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
@@ -47,9 +47,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         transition: theme.transitions.create("width"),
         width: "100%",
         [theme.breakpoints.up("sm")]: {
-            width: "12ch",
+            width: "20ch",
             "&:focus": {
-                width: "20ch",
+                width: "30ch",
             },
         },
     },
@@ -103,7 +103,7 @@ const NavBar: React.FC<{ localWeather: LocalWeather }> = observer(
                                 <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
-                                placeholder="Search…"
+                                placeholder="Search City or Zip Code"
                                 inputProps={{ "aria-label": "search" }}
                             />
                         </Search>

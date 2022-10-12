@@ -3,10 +3,11 @@ import React from "react";
 import LocalWeather from "../models/local-weather";
 import ILocalWeather from "../types/local-weather";
 
-import { TenDayForecast, HourlyForecast } from "./weatherwidget";
+import { TenDayForecast, HourlyForecast, CurrentDetailsTable} from "./weatherwidget";
 
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
@@ -23,38 +24,48 @@ const WeatherCard: React.FC<{ localWeather: LocalWeather }> = observer(
     ({ localWeather }) => {
 
         return (
-            <Container maxWidth="lg" sx={{
-                p: 0,
-                mt: "4rem",
+            <Container maxWidth="lg" disableGutters sx={{
+                p: "0rem",
+                // mt: "4rem",
+                borderRadius: "8rem",
+                // backgroundImage: "linear-gradient(45deg, #4ba3c7, #81d4fa, #b6ffff, #ffe97d, #ffb74d, #c88719)",
+                // backgroundRepeat: "no-repeat",
+                // backgroundSize: "fill",
             }}>
-                <Card elevation={2} sx={{
-                    p: "3rem",
+                <Card sx={{
+                    p: "2rem",
+                    mb: "4rem",
+                    backgroundColor: "rgba(128, 128, 128, 0.25)",
+                    backdropFilter: "blur(64px)",
+                    borderRadius: "16px",
+
+                    height: "38rem",
                 }}>
-                    <p>Some Location... Maybe its {localWeather.timezone}</p>
-                    <Grid container>
+                    <Grid container sx={{
+                        height: "100%",
+                    }}>
                         <Grid xs={4}>
-                            <Container>
-                                <Paper>
+                            <Container disableGutters sx={{
+                                height: "100%",
+                            }}>
+                                <Paper sx={{
+                                    backgroundColor: "rgba(255, 255, 255, 0.25)",
+                                    backdropFilter: "blur(64px)",
+                                    height: "100%",
+                                }}>
                                     <TenDayForecast localWeather={localWeather}/>
                                 </Paper>
                             </Container>
                         </Grid>
                         <Grid xs={8}>
-                            <Container sx={{
-                                height: 1,
+                            <Stack gap={2} sx={{
+                                pl: "1rem",
+                                justifyContent: "space-between",
+                                height: "100%",
                             }}>
-                                <HourlyForecast hourlyWeather={localWeather.hourly}/>
-                                <Paper sx={{
-                                    p: "2rem",
-                                }}>
-                                    <p>Wow I'm item 3</p>
-                                    <p>Wow I'm item 3</p>
-                                    <p>Wow I'm item 3</p>
-                                    <p>Wow I'm item 3</p>
-                                    <p>Wow I'm item 3</p>
-                                    <p>Wow I'm item 3</p>
-                                </Paper>
-                            </Container>
+                                <CurrentDetailsTable localWeather={localWeather} />
+                                <HourlyForecast hourlyWeather={localWeather.hourly} />
+                            </Stack>
                         </Grid>
                     </Grid>
                 </Card>

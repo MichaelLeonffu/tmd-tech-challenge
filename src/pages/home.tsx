@@ -8,10 +8,7 @@ import LocalWeather from "../models/local-weather";
 
 import WeatherCard from "../components/weathercard";
 import NavBar from "../components/navbar";
-
-import {
-    Container,
-} from "@mui/material";
+import Container from "@mui/material/Container";
 
 const HomePage = observer(() => {
 
@@ -113,12 +110,13 @@ const HomePage = observer(() => {
             <p>{JSON.stringify(apiData)}</p>
             <p>{loading ? "true" : "false"}</p>
              */}
-            <div>
+            {/* <div>
                 <h1>Change Store</h1>
                 <button onClick={updateStore}>Store Update</button>
-            </div>
+            </div> */}
             <Container sx={{
                 rowGap: "4rem",
+                mt: "4rem",
             }}>
                 {
                     Array.from(store.locationOrder).map((locationId: number) => {

@@ -19,11 +19,10 @@ Table of contents
   - [Geolocation and Cookies Logic](#geolocation-and-cookies-logic)
   - [Bare Bones Components Outlines](#bare-bones-components-outlines)
 - [Day 3: Wednesday (Style, UI)](#day-3-wednesday-style-ui)
-  - [Build input fields and searching](#build-input-fields-and-searching)
+  - [Style Components and populate them with data](#style-components-and-populate-them-with-data)
+  - [User Input Features](#user-input-features)
   - [Revisit Cookies](#revisit-cookies)
-  - [User input features](#user-input-features)
   - [Make all the components functional](#make-all-the-components-functional)
-  - [Style](#style)
   - [Adapt for two views](#adapt-for-two-views)
 - [Day 4: Thursday (Testing)](#day-4-thursday-testing)
   - [Learn and Implement Jest](#learn-and-implement-jest)
@@ -134,25 +133,28 @@ If there is time I'll make the UI more interesting
 - Make all the components and pass them data
 - components: `NavBar`, `WeatherCard`, `WeatherWidget`
 - `npm install @mui/material @mui/icons-material @emotion/react @emotion/styled` I like to use MUI React.
-- Checkpoint: [basic-components-layout.html](../public/basic-components-layout.html)
+- Checkpoint: [basic-components-layout.html](../public/snapshots/basic-components-layout.html)
 - I got a little distracted trying to create some layouts; CSS my enemy!
 - Built the "10-DAY FORECAST" and started on "HOURLY FORECAST"
 - Need to keep working on this tomorrow; this means I didn't finish all my tasks for the day...
-- Checkpoint: [components-partly-populated.html](../public/components-partly-populated.html)
+- Checkpoint: [components-partly-populated.html](../public/snapshots/components-partly-populated.html)
 
 ## Day 3: Wednesday (Style, UI)
 
-### Build input fields and searching
-- Create input search fields to populate the components with data
-- Think about C/F settings
+### Style Components and populate them with data
+**2.5 Hours**
+- Ended up working on some styles haha. [tmdtc-frosted-glass.html](../public/snapshots/tmdtc-frosted-glass.html)
+- Finished up making components use data. And styled. [tmdtc-components-populated.html](../public/snapshots/tmdtc-components-populated.html)
+- ~~Think about C/F settings~~ Most of these can be set in the query parameters, need to keep track of it.
+
+### User Input Features
+- Search bar and suggestions.
 
 ### Revisit Cookies
+- Create input search fields to populate the components with data
 
-### User input features
 
 ### Make all the components functional
-
-### Style
 
 ### Adapt for two views
 
