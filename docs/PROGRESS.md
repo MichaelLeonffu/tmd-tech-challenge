@@ -17,21 +17,27 @@ Table of contents
   - [Test Api and Store's update](#test-api-and-stores-update)
   - [Add Support for Geolocation: City names API](#add-support-for-geolocation-city-names-api)
   - [Geolocation and Cookies Logic](#geolocation-and-cookies-logic)
-  - [Bare Bones Components outlines](#bare-bones-components-outlines)
-- [Day 3: Wednesday (Style)](#day-3-wednesday-style)
-  - [Make all the components functional and display properly](#make-all-the-components-functional-and-display-properly)
+  - [Bare Bones Components Outlines](#bare-bones-components-outlines)
+- [Day 3: Wednesday (Style, UI)](#day-3-wednesday-style-ui)
+  - [Build input fields and searching](#build-input-fields-and-searching)
+  - [Revisit Cookies](#revisit-cookies)
+  - [User input features](#user-input-features)
+  - [Make all the components functional](#make-all-the-components-functional)
+  - [Style](#style)
+  - [Adapt for two views](#adapt-for-two-views)
 - [Day 4: Thursday (Testing)](#day-4-thursday-testing)
   - [Learn and Implement Jest](#learn-and-implement-jest)
+  - [Any extra time for styling](#any-extra-time-for-styling)
 - [Day 5: Friday (Extra!)](#day-5-friday-extra)
   - [Actually I don't think I'll work on this on Friday](#actually-i-dont-think-ill-work-on-this-on-friday)
 
 ## Day 1: Monday (Base App)
 **Roughly 5 hours**
 
-I realized I spent so much time on really small issues and bugs that are a low priority.
-I got stuck making the extra backend-express server to hide the key.
-I also got stuck with some limitations of javascript, equality operators not being override-able; resulting in a bad Map.
-I was making really great progress at the start of the day but by the end of it I slowed down.
+- I realized I spent so much time on really small issues and bugs that are a low priority.
+- I got stuck making the extra backend-express server to hide the key.
+- I also got stuck with some limitations of javascript, equality operators not being override-able; resulting in a bad Map.
+- I was making really great progress at the start of the day but by the end of it I slowed down.
 
 ### Set up the app; Docs; Run app.
 **30 minutes**
@@ -92,6 +98,13 @@ If there is time I'll make the UI more interesting
   - This way the key stays on the server and doesn't get built into the client.
 
 ## Day 2: Tuesday (Base App)
+**Roughly 8 Hours**
+
+- Today felt slower than yesterday; I ran into things that I'm quite new to or inexperienced with.
+- I'm not very good at CSS/HTML; so I can follow can create the backend fo the React app but I don't have much experience with how to use things like flexbox or how to enter elements.
+- On top of that I ran into some bugs that kept holding me back. Things like not knowing cookies can only be a certain size, and some typing issues with Functional Components.
+- Ultimately today felt like it should have been quite easy but it took longer than expected.
+- But I do like how much I'm learning about React and making UIs; I just wish I had more experience so I can get to the point where I can start making some real headway and innovations in the design. I really want to get into the optimizations and really have a deep understanding of how everything is working together. I like that feeling.
 
 ### Test Api and Store's update
 **60 Minutes**
@@ -116,16 +129,38 @@ If there is time I'll make the UI more interesting
   - Or I can just save a limited amount of information in the cookies.
 - For now I should skip this section and move on, I'll come back to it later.
 
-### Bare Bones Components outlines
+### Bare Bones Components Outlines
+**4 Hours**
+- Make all the components and pass them data
+- components: `NavBar`, `WeatherCard`, `WeatherWidget`
+- `npm install @mui/material @mui/icons-material @emotion/react @emotion/styled` I like to use MUI React.
+- Checkpoint: [basic-components-layout.html](../public/basic-components-layout.html)
+- I got a little distracted trying to create some layouts; CSS my enemy!
+- Built the "10-DAY FORECAST" and started on "HOURLY FORECAST"
+- Need to keep working on this tomorrow; this means I didn't finish all my tasks for the day...
+- Checkpoint: [components-partly-populated.html](../public/components-partly-populated.html)
+
+## Day 3: Wednesday (Style, UI)
+
+### Build input fields and searching
+- Create input search fields to populate the components with data
 - Think about C/F settings
 
-## Day 3: Wednesday (Style)
+### Revisit Cookies
 
-### Make all the components functional and display properly
+### User input features
+
+### Make all the components functional
+
+### Style
+
+### Adapt for two views
 
 ## Day 4: Thursday (Testing)
 
 ### Learn and Implement Jest
+
+### Any extra time for styling
 
 ## Day 5: Friday (Extra!)
 

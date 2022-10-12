@@ -122,9 +122,11 @@ export default class AppStore {
      */
     @action reorderLocations(locationOrder: number[]) {
         const valid = locationOrder.some((locationId: number) => {
-            return !this.locations.has(locationId);
+            return this.locations.has(locationId);
         });
         if (!valid) {
+            console.error("locationOrder: ", locationOrder);
+            console.error("locations: ", this.locations);
             throw 'A locationId does not exist';
         }
         this.locationOrder = observable.set(new Set(locationOrder));

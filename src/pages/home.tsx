@@ -2,9 +2,16 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../app-context";
 
-
 import ILatLon from "../types/latlon";
 import LatLon from "../models/latlon";
+import LocalWeather from "../models/local-weather";
+
+import WeatherCard from "../components/weathercard";
+import NavBar from "../components/navbar";
+
+import {
+    Container,
+} from "@mui/material";
 
 const HomePage = observer(() => {
 
@@ -80,6 +87,8 @@ const HomePage = observer(() => {
         console.log("b4", copy0);
         console.log("b4", copy1);
         console.log("b4", copy2);
+
+        store.reorderLocations(Array.from(store.locations.keys()));
     }
 
     // useEffect(() => {
@@ -91,18 +100,33 @@ const HomePage = observer(() => {
     //         })
     // }, []);
 
-    // if (!position) return null;
+    const IdataToShow = store.localWeathers.get(0);
+
+    if (!IdataToShow) return null;
+
+    const dataToShow = new LocalWeather(IdataToShow);
 
     return (
         <div>
-            <p>{JSON.stringify(position)}</p>
+            <NavBar localWeather={dataToShow}/>
+            {/* <p>{JSON.stringify(position)}</p>
             <p>{JSON.stringify(apiData)}</p>
             <p>{loading ? "true" : "false"}</p>
-
+             */}
             <div>
                 <h1>Change Store</h1>
                 <button onClick={updateStore}>Store Update</button>
             </div>
+            <Container sx={{
+                rowGap: "4rem",
+            }}>
+                {
+                    Array.from(store.locationOrder).map((locationId: number) => {
+                        return (<WeatherCard key={locationId} localWeather={dataToShow} />)
+                    })
+                }
+                {/* <WeatherCard localWeather={dataToShow} /> */}
+            </Container>
         </div>
     );
 });
