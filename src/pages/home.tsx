@@ -6,8 +6,9 @@ import ILatLon from "../types/latlon";
 import LatLon from "../models/latlon";
 import LocalWeather from "../models/local-weather";
 
-import WeatherCard from "../components/weathercard";
 import NavBar from "../components/navbar";
+import SearchBar from "../components/searchbar";
+import WeatherCard from "../components/weathercard";
 import Container from "@mui/material/Container";
 
 const HomePage = observer(() => {
@@ -70,20 +71,6 @@ const HomePage = observer(() => {
         console.log("b4", copy1);
         console.log("b4", copy2);
         api.getLocalWeather({lat: 80, lon: 13});
-        copy0 = store.localWeathers.get(0);
-        copy1 = store.localWeathers.get(1);
-        copy2 = store.localWeathers.get(2);
-        console.log("b4", copy0);
-        console.log("b4", copy1);
-        console.log("b4", copy2);
-
-        console.log("af", store.localWeathers);
-        copy0 = store.localWeathers.get(0);
-        copy1 = store.localWeathers.get(1);
-        copy2 = store.localWeathers.get(2);
-        console.log("b4", copy0);
-        console.log("b4", copy1);
-        console.log("b4", copy2);
 
         store.reorderLocations(Array.from(store.locations.keys()));
     }
@@ -110,10 +97,11 @@ const HomePage = observer(() => {
             <p>{JSON.stringify(apiData)}</p>
             <p>{loading ? "true" : "false"}</p>
              */}
-            {/* <div>
-                <h1>Change Store</h1>
+            <div>
+                {/* <h1>Change Store</h1> */}
                 <button onClick={updateStore}>Store Update</button>
-            </div> */}
+            </div>
+            <SearchBar />
             <Container sx={{
                 rowGap: "4rem",
                 mt: "4rem",

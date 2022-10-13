@@ -35,7 +35,7 @@ const WeatherCard: React.FC<{ localWeather: LocalWeather }> = observer(
                 <Card sx={{
                     p: "2rem",
                     mb: "4rem",
-                    backgroundColor: "rgba(128, 128, 128, 0.25)",
+                    backgroundColor: "rgba(160, 160, 160, 0.15)",
                     backdropFilter: "blur(64px)",
                     borderRadius: "16px",
 

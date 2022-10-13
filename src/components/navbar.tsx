@@ -11,6 +11,19 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
+import Tooltip from "@mui/material/Tooltip";
+import Zoom from '@mui/material/Zoom';
+
+const options: string[] = ["options1", "options2"];
+
+const SearchDrop = styled(Autocomplete)(( {theme }) => ({
+    // marginTop: "4rem",
+    position: "absolute",
+
+}));
 
 const Search = styled("div")(({ theme }) => ({
     position: "relative",
@@ -58,6 +71,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const NavBar: React.FC<{ localWeather: LocalWeather }> = observer(
     ({ localWeather }) => {
 
+        const emptyString: string = "";
+        const [value, setValue] = React.useState(options[0]);
+        const [inputValue, setInputValue] = React.useState(emptyString);
+        const [showDropDown, setShowDownDown] = React.useState(false);
+
+        const [searchContents, setSearchContents] = React.useState(emptyString);
+
         return (
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
@@ -96,17 +116,65 @@ const NavBar: React.FC<{ localWeather: LocalWeather }> = observer(
                             }}
                         >
                         </Typography>
-                        <Search sx={{
-                            mr: "auto",
-                        }}>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search City or Zip Code"
-                                inputProps={{ "aria-label": "search" }}
-                            />
-                        </Search>
+                        <Tooltip
+                            title="Press enter to search!"
+                            placement="bottom"
+                            TransitionComponent={Zoom}
+                            enterDelay={100}
+                            leaveDelay={100}
+                            disableInteractive
+                            arrow
+                        >
+                            <Search sx={{
+                                mr: "auto",
+                            }}>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder="Search City or Zip Code"
+                                    inputProps={{ "aria-label": "search" }}
+                                    onChange={(event) => {
+                                        setSearchContents(event.target.value)
+                                    }}
+                                    onKeyDown={(event) => {
+                                        if (event.code === "Enter") {
+                                            console.log("enter pressed");
+                                            console.log("Query: ", searchContents)
+                                        }
+                                    }}
+                                />
+                                {/* <Paper sx={{
+                                    position: "absolute",
+                                    width: "100%"
+                                }}>
+                                    <Typography 
+                                        align="center"
+                                    sx={{
+                                        
+                                    }}>
+                                        Hi there
+                                    </Typography>
+                                </Paper> */}
+                                <SearchDrop
+                                    value="options1"
+                                    onChange={(event, newValue) => {
+                                        setValue(newValue ? String(newValue) : "");
+                                    }}
+                                    inputValue={inputValue}
+                                    onInputChange={(event, newInputValue) => {
+                                        setInputValue(newInputValue);
+                                    }}
+                                    id="controllable-states-demo"
+                                    options={options}
+                                    sx={{
+                                        width: 300,
+                                        display: showDropDown ? "block" : "none",
+                                    }}
+                                    renderInput={(params) => <TextField {...params} label="Search Organization ..." />}
+                                />
+                            </Search>
+                        </Tooltip>
                     </Toolbar>
                 </AppBar>
             </Box>

@@ -55,7 +55,7 @@ const aDayInTenDayForcast = function (timezone_offset: number, [dayWeather]: ILo
     const iconURL = `https://openweathermap.org/img/wn/${dayWeather.weather[0].icon}.png`
 
     return (
-        <div>
+        <div key={Number(dayWeather.dt)}>
             <Divider />
             <ListItem >
                 <ListItemIcon>
@@ -199,32 +199,34 @@ const HourlyForecast: React.FC<{ hourlyWeather: LocalWeather['hourly'] }> = obse
                         {
                             hourlyWeather.map((val) => {
                                 return (
-                                    <Stack
-                                        alignItems="center"
-                                    >
-                                        <Typography
-                                            variant="subtitle1"
-                                            noWrap={true}
+                                    <div key={Number(val.dt)}>
+                                        <Stack
+                                            alignItems="center"
                                         >
-                                            {/* Fix the timezone */}
-                                            {(new Date(Number(val.dt) * 1000)).getHours()}
-                                        </Typography>
-                                            <Image 
-                                                src={`https://openweathermap.org/img/wn/${val.weather[0].icon}.png`}
-                                                height="3rem"
-                                                width="3rem"
-                                                fit="cover"
-                                                easing="ease-in"
-                                                duration={500}
-                                                distance="10"
-                                            />
-                                        <Typography
-                                            variant="subtitle1"
-                                            noWrap={true}
-                                        >
-                                            {val.temp}°
-                                        </Typography>
-                                    </Stack>
+                                            <Typography
+                                                variant="subtitle1"
+                                                noWrap={true}
+                                            >
+                                                {/* Fix the timezone */}
+                                                {(new Date(Number(val.dt) * 1000)).getHours()}
+                                            </Typography>
+                                                <Image 
+                                                    src={`https://openweathermap.org/img/wn/${val.weather[0].icon}.png`}
+                                                    height="3rem"
+                                                    width="3rem"
+                                                    fit="cover"
+                                                    easing="ease-in"
+                                                    duration={500}
+                                                    distance="10"
+                                                />
+                                            <Typography
+                                                variant="subtitle1"
+                                                noWrap={true}
+                                            >
+                                                {val.temp}°
+                                            </Typography>
+                                        </Stack>
+                                    </div>
                                 );
                             })
                         }
@@ -303,7 +305,7 @@ const CurrentDetailsTable: React.FC<{ localWeather: LocalWeather }> = observer(
                                 },
                             ].map((detail) => {
                                 return (
-                                    <div>
+                                    <div key={detail.name}>
                                         <Divider />
                                         <ListItem>
                                             <ListItemIcon>
@@ -355,7 +357,7 @@ const CurrentDetailsTable: React.FC<{ localWeather: LocalWeather }> = observer(
                                 },
                             ].map((detail) => {
                                 return (
-                                    <div>
+                                    <div key={detail.name}>
                                         <Divider />
                                         <ListItem>
                                             <ListItemIcon>

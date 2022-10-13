@@ -20,7 +20,8 @@ Table of contents
   - [Bare Bones Components Outlines](#bare-bones-components-outlines)
 - [Day 3: Wednesday (Style, UI)](#day-3-wednesday-style-ui)
   - [Style Components and populate them with data](#style-components-and-populate-them-with-data)
-  - [User Input Features](#user-input-features)
+  - [User Input Features 330](#user-input-features-330)
+  - [Actually Searching](#actually-searching)
   - [Revisit Cookies](#revisit-cookies)
   - [Make all the components functional](#make-all-the-components-functional)
   - [Adapt for two views](#adapt-for-two-views)
@@ -147,8 +148,15 @@ If there is time I'll make the UI more interesting
 - Finished up making components use data. And styled. [tmdtc-components-populated.html](../public/snapshots/tmdtc-components-populated.html)
 - ~~Think about C/F settings~~ Most of these can be set in the query parameters, need to keep track of it.
 
-### User Input Features
+### User Input Features 330
+**3 Hours**
 - Search bar and suggestions.
+- I realized that I was spending too much time trying to make the search work UI wise in the NAV bar, so I'll do something more similar to Google's style
+- Ok so I switched the style but I'm still taking a long time. I need to pace myself better and work on the core features: actually searching and loading data.
+- What it looks like: [tmdtc-frosted-glass.html](../public/snapshots/tmdtc-frosted-glass.html)
+
+### Actually Searching
+- Making the search bar query and load data to display.
 
 ### Revisit Cookies
 - Create input search fields to populate the components with data
