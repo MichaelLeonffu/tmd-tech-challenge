@@ -32,7 +32,7 @@ const WeatherCard: React.FC<{ localWeather: ILocalWeather, geolocation: IGeoLoca
                 borderRadius: "8rem",
             }}>
                 <Card sx={{
-                    p: "2rem",
+                    p: {sm: "0rem", md:"2rem"},
                     mb: "4rem",
                     backgroundColor: "rgba(160, 160, 160, 0.15)",
                     backdropFilter: "blur(64px)",
