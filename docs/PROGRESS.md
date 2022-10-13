@@ -21,15 +21,14 @@ Table of contents
 - [Day 3: Wednesday (Style, UI)](#day-3-wednesday-style-ui)
   - [Style Components and populate them with data](#style-components-and-populate-them-with-data)
   - [User Input Features 330](#user-input-features-330)
-  - [Actually Searching](#actually-searching)
+  - [Actually Searching and Adding to the list](#actually-searching-and-adding-to-the-list)
+- [Day 4: Thursday (Testing and finishing up some other work...)](#day-4-thursday-testing-and-finishing-up-some-other-work)
+  - [Add MetaData editing](#add-metadata-editing)
   - [Revisit Cookies](#revisit-cookies)
-  - [Make all the components functional](#make-all-the-components-functional)
   - [Adapt for two views](#adapt-for-two-views)
-- [Day 4: Thursday (Testing)](#day-4-thursday-testing)
   - [Learn and Implement Jest](#learn-and-implement-jest)
-  - [Any extra time for styling](#any-extra-time-for-styling)
 - [Day 5: Friday (Extra!)](#day-5-friday-extra)
-  - [Actually I don't think I'll work on this on Friday](#actually-i-dont-think-ill-work-on-this-on-friday)
+  - [Actually I don't think I'll work on this on Friday. I have plans.](#actually-i-dont-think-ill-work-on-this-on-friday-i-have-plans)
 
 ## Day 1: Monday (Base App)
 **Roughly 5 hours**
@@ -155,23 +154,37 @@ If there is time I'll make the UI more interesting
 - Ok so I switched the style but I'm still taking a long time. I need to pace myself better and work on the core features: actually searching and loading data.
 - What it looks like: [tmdtc-frosted-glass.html](../public/snapshots/tmdtc-frosted-glass.html)
 
-### Actually Searching
+### Actually Searching and Adding to the list
+**120 Minutes**
 - Making the search bar query and load data to display.
+- Search bar can search and display query results; also it looks really nice right now!
+- Search uses API to get data; shows loading while searching.
+- Loaded weather cards show up automatically.
+- I did a lot during this time. It was productive! much more than messing with styles, this means:
+  - I need to learn more about styles and well I'm using the MUI Framework so that doesn't help.
+  - I need to learn more about different API's that exist. I'm using a lot of crutches and workarounds, this will get better over time.
+  - I'm actually enjoying the process but I know it shouldn't be a trial and error process. That's why I want to learn how to do it properly and with the right tools. I don't want this to be a hackathon.
+- I'm happy where it is at currently. [tmdtc-search-works.html](../public/snapshots/tmdtc-search-works.html) although this snapshot doesn't have the features to search. The drop down is very nice!
+- Screenshots: 
+  - ![screenshots/searchbar-works.png](./screenshots/searchbar-works.png)
+  - ![screenshots/searchbar-open.png](./screenshots/searchbar-open.png)
+
+## Day 4: Thursday (Testing and finishing up some other work...)
+
+### Add MetaData editing
+- Save (autosave) to cookies button (or toggle?)
+- Remove an item, move an item up or down in the list
+- Clear all items from the list
 
 ### Revisit Cookies
 - Create input search fields to populate the components with data
 
-
-### Make all the components functional
-
 ### Adapt for two views
-
-## Day 4: Thursday (Testing)
 
 ### Learn and Implement Jest
 
-### Any extra time for styling
-
 ## Day 5: Friday (Extra!)
 
-### Actually I don't think I'll work on this on Friday
+### Actually I don't think I'll work on this on Friday. I have plans.
+
+But that being said if I had more time I know what I would work on.

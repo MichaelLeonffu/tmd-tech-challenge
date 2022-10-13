@@ -57,6 +57,7 @@ function App() {
 
 /** Save to Cookies on change */
 autorun(() =>  {
+    return;
     /** I know this isn't the best code; but I need to move on from this */
     values(store.localWeathers);
     values(store.geolocations);

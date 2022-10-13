@@ -2,15 +2,21 @@ import React from "react";
 import { observer } from "mobx-react";
 import { useAppContext } from "../app-context";
 
+import IGeoLocation from "../types/geolocation";
+
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import SearchIcon from "@mui/icons-material/Search";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import InputBase from "@mui/material/InputBase";
 import Zoom from "@mui/material/Zoom";
 import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemButton from "@mui/material/ListItemButton";
+import Container from "@mui/material/Container";
 
 const SearchInputBar = styled(Box)(({ theme }) => ({
     position: "absolute",
@@ -83,71 +89,187 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const SearchBar: React.FC<{ }> = observer(
-    () => {
+const SearchBar: React.FC<{ }> = observer(() => {
 
-        /** Reference: https://www.google.com */
+    /** Reference: https://www.google.com */
 
-        /** Get the store, this component almost directly communicates with the context */
-        const { api, store } = useAppContext();
+    /** Get the store, this component almost directly communicates with the context */
+    const { api, store } = useAppContext();
 
-        const emptyString: string = "";
-        const [searchContents, setSearchContents] = React.useState(emptyString);
-        const [searchFocus, setSearchFocus] = React.useState(false);
+    const emptyString: string = "";
+    const [searchQuery, setSearchQuery] = React.useState(emptyString);
+    const [searchFocus, setSearchFocus] = React.useState(false);
 
+    /** 
+     * The initial searchbar state, minimized, no autocomplete options. 
+     * 
+     * true: initial, after text changes
+     * false: after enter is pressed and the query is submitted
+     * */
+    const [searchBarReady, setSearchBarReady] = React.useState(true);
+    /** 
+     * Actively waiting for a API response, not the same as waiting for input 
+     * 
+     * true: initial, when a query is sent
+     * false: when a res is obtained, or when text changes.
+     * */
+    const [waitingForRes, setWaitingForRes] = React.useState(true);
+
+    const arrayOfGeolocationType: IGeoLocation[] = [];
+    const [serachQueryResults, setSerachQueryResults] = React.useState(arrayOfGeolocationType);
+
+
+    const searchResults = function() {
+
+        /** Don't show anything if not in focus */
+        if (!searchFocus) {
+            return (<></>);
+        }
+
+        /** Also don't show anything if in ready mode; nothing to show! */
+        if (searchBarReady) {
+            return (<></>);
+        }
+
+        /** If results aren't in yet, show loading... */
+        if (waitingForRes) {
+            return (
+                <Container disableGutters>
+                <Divider />
+                <List>
+                    <ListItem>
+                        <ListItemText primary="Loading..." />
+                    </ListItem>
+                </List>
+            </Container>
+            );
+        }
 
         return (
-            <Tooltip
-                    title="Press enter to search!"
-                    placement="top"
-                    TransitionComponent={Zoom}
-                    enterDelay={100}
-                    leaveDelay={100}
-                    disableInteractive
-                    arrow
-                >
-                <SearchInputBar 
-                    sx={{
-                        height: (searchFocus ? "30rem" : "3rem"),
-                    }}
-                >
-                        <Search sx={{
-                            // mr: "auto"
-                        }}>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search City or Zip Code"
-                                inputProps={{ "aria-label": "search" }}
-                                onFocus={() => {
-                                    setSearchFocus(true)
-                                }}
-                                onBlur={() =>{
-                                    setSearchFocus(false)
-                                }}
-                                onChange={(event) => {
-                                    setSearchContents(event.target.value)
-                                }}
-                                onKeyDown={(event) => {
-                                    if (event.code === "Enter") {
-                                        /** Do the search */
-                                    }
-                                }}
-                            />
-                        </Search>
-                    {
-                    (
-                        searchFocus ?
-                        <Divider /> :
-                        <></>
-                        )
-                    }
-                </SearchInputBar>
-            </Tooltip>
+            <Container disableGutters>
+                <Divider />
+                {serachQueryResults.map((location: IGeoLocation) => {
+
+                    const locationFullName = `${location.name}, ${location.state}, ${location.country}`
+
+                    return (
+                        <div key={locationFullName}>
+                            <List disablePadding={true}>
+                                <ListItemButton sx={{
+                                    py: 0,
+                                    pl: "25px",
+                                    
+                                }}>
+                                    <ListItemIcon>
+                                        <SearchIcon />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={locationFullName}
+                                        sx={{
+                                            py: "0.32rem",
+                                        }}
+                                        onClick={() => {
+                                            console.log("clicked", location.lat, location.lon);
+                                            const coords = {lat: location.lat, lon: location.lon};
+                                            ( async () => {
+                                                try {
+                                                    /** Do both API requests */
+                                                    await api.getGeolocationFromLatLon(coords);
+                                                    await api.getLocalWeather(coords);
+
+                                                    /** Add the location to the list */
+                                                    const newId = store.getLocationId(coords);
+                                                    // store.locationOrder;
+                                                    store.reorderLocations([newId, ...store.locationOrder]);
+                                                } finally {
+
+                                                }
+                                            })()
+                                        }}
+                                    />
+                                </ListItemButton>
+                            </List>
+                        </div>
+                    );
+                })}
+            </Container>
         );
     }
-);
+
+    return (
+        <Tooltip
+                title="Press enter to search!"
+                placement="top"
+                TransitionComponent={Zoom}
+                enterDelay={100}
+                leaveDelay={100}
+                disableInteractive
+                arrow
+                onBlur={() => {
+
+                    /** 
+                     * Really rough but it works for now!
+                     * 
+                     * TODO: Fix this: it makes the autocomplete results dropdown
+                     * disappear before the "onClick" event occurs!
+                     */
+                    setTimeout(() => {
+                        setSearchFocus(false);
+                    }, 200);
+
+                }}
+            >
+            <SearchInputBar 
+                sx={{
+                    // height: (searchFocus ? "30rem" : "3rem"),
+                    minHeight: "3rem",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    backdropFilter: "blur(5px)",
+                }}
+            >
+                    <Search sx={{
+                        // mr: "auto"
+                    }}>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search City or Zip Code"
+                            inputProps={{ "aria-label": "search" }}
+                            onFocus={() => {
+                                setSearchFocus(true);
+                            }}
+                            // onBlur={() =>{
+                            //     setSearchFocus(false);
+                            // }}
+                            onChange={(event) => {
+                                setSearchQuery(event.target.value);
+                                setWaitingForRes(false);
+                                setSearchBarReady(true);
+                            }}
+                            onKeyDown={(event) => {
+                                if (event.code === "Enter") {
+                                    /** Do the search */
+                                    setSearchBarReady(false);
+                                    (async () => {
+                                        try{
+                                            setWaitingForRes(true);
+                                            const data = await api.getGeolocationByCity(searchQuery);
+                                            console.log(data);
+                                            setSerachQueryResults(data);
+                                        } finally {
+                                            setWaitingForRes(false);
+                                        }
+                                    })();
+                                }
+                            }}
+                        />
+                    </Search>
+                {searchResults()}
+            </SearchInputBar>
+        </Tooltip>
+    );
+});
 
 
 export default SearchBar;

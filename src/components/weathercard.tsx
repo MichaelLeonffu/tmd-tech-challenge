@@ -2,6 +2,8 @@ import { observer } from "mobx-react";
 import React from "react";
 import LocalWeather from "../models/local-weather";
 import ILocalWeather from "../types/local-weather";
+import ILatLon from "../types/latlon";
+import IGeoLocation from "../types/geolocation";
 
 import { TenDayForecast, HourlyForecast, CurrentDetailsTable} from "./weatherwidget";
 
@@ -10,7 +12,6 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Paper from "@mui/material/Paper";
 import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
 
 
 /** Not sure what is the best way to do this part... Typing and using good practices... */
@@ -20,8 +21,8 @@ import Typography from "@mui/material/Typography";
 // const WeatherCard: React.FC<{ localWeather: LocalWeather}> = observer(
 // const WeatherCard = ({children}: Props): JSX.Element => {
 
-const WeatherCard: React.FC<{ localWeather: LocalWeather }> = observer(
-    ({ localWeather }) => {
+const WeatherCard: React.FC<{ localWeather: ILocalWeather, geolocation: IGeoLocation }> = observer(
+    ({ localWeather, geolocation }) => {
 
         return (
             <Container maxWidth="lg" disableGutters sx={{
@@ -63,7 +64,7 @@ const WeatherCard: React.FC<{ localWeather: LocalWeather }> = observer(
                                 justifyContent: "space-between",
                                 height: "100%",
                             }}>
-                                <CurrentDetailsTable localWeather={localWeather} />
+                                <CurrentDetailsTable localWeather={localWeather} geolocation={geolocation}/>
                                 <HourlyForecast hourlyWeather={localWeather.hourly} />
                             </Stack>
                         </Grid>

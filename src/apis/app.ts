@@ -23,6 +23,7 @@ export default class AppApi {
                 /** TODO: should these be strings? */
                 lat: latLon.lat,
                 lon: latLon.lon,
+                units: "imperial",
             }
         });
         this.store.loadLocalWeather(latLon, res.data);
@@ -54,7 +55,8 @@ export default class AppApi {
                 limit: 5,
             }
         });
-        const latLon = {lat: res.data[0].lat, lon: res.data[0].lon}
-        this.store.loadGeolocation(latLon, res.data[0]);
+        return res.data;
+        // const latLon = {lat: res.data[0].lat, lon: res.data[0].lon}
+        // this.store.loadGeolocation(latLon, res.data[0]);
     }
 }

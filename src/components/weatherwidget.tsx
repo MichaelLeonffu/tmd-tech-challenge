@@ -1,6 +1,8 @@
 import { observer } from "mobx-react";
 import React from "react";
 import LocalWeather from "../models/local-weather";
+import ILocalWeather from "../types/local-weather";
+import IGeolocation from "../types/geolocation";
 
 import Container from "@mui/material/Container";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -27,7 +29,6 @@ import AirIcon from '@mui/icons-material/Air';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
 
 import Divider from "@mui/material/Divider";
-import ILocalWeather from "../types/local-weather";
 import { fontFamily } from "@mui/system";
 
 const DAYS_OF_WEEK = "Mon Tue Wed Thu Fri Sat Sun".split(" ");
@@ -84,7 +85,7 @@ const aDayInTenDayForcast = function (timezone_offset: number, [dayWeather]: ILo
     );
 }
 
-const TenDayForecast: React.FC<{ localWeather: LocalWeather }> = observer(
+const TenDayForecast: React.FC<{ localWeather: ILocalWeather }> = observer(
     ({ localWeather }) => {
 
         /** Extract 10 Day forecast for this weather */
@@ -118,17 +119,6 @@ const TenDayForecast: React.FC<{ localWeather: LocalWeather }> = observer(
                     maxWidth: 360,
                     // bgcolor: "background.paper",
                 }}>
-                    {/* <ListItem>
-                        <ListItemAvatar>
-                        <WbCloudyIcon />
-                        </ListItemAvatar>
-                        <ListItemText
-                        primary="Today"
-                        secondary="L: 65° H: 80°"
-                        secondaryTypographyProps={
-                            {variant: "subtitle1", fontWeight: "bold"}
-                        } />
-                    </ListItem> */}
                     {/* <Divider component="li" />
                     <ListItem >
                         <ListItemIcon>
@@ -139,7 +129,6 @@ const TenDayForecast: React.FC<{ localWeather: LocalWeather }> = observer(
                             {variant: "body2", fontWeight: "bold", noWrap: true}
                         } />
                     </ListItem> */}
-
                     {
                         localWeather.daily.map((dayWeather) => {
                             return aDayInTenDayForcast(localWeather.timezone_offset, [dayWeather]);
@@ -152,7 +141,7 @@ const TenDayForecast: React.FC<{ localWeather: LocalWeather }> = observer(
     }
 );
 
-const HourlyForecast: React.FC<{ hourlyWeather: LocalWeather['hourly'] }> = observer(
+const HourlyForecast: React.FC<{ hourlyWeather: ILocalWeather['hourly'] }> = observer(
     ({ hourlyWeather }) => {
 
         return (
@@ -237,8 +226,8 @@ const HourlyForecast: React.FC<{ hourlyWeather: LocalWeather['hourly'] }> = obse
     }
 );
 
-const CurrentDetailsTable: React.FC<{ localWeather: LocalWeather }> = observer(
-    ({ localWeather }) => {
+const CurrentDetailsTable: React.FC<{ localWeather: ILocalWeather, geolocation: IGeolocation }> = observer(
+    ({ localWeather, geolocation }) => {
 
         /** Reference https://weather.com/weather/today/l/6caf363b20330ebd578b326e30c259c895b39fe2a4e4722f745fc3ae18d3acdb */
 
@@ -253,7 +242,7 @@ const CurrentDetailsTable: React.FC<{ localWeather: LocalWeather }> = observer(
                     fontFamily: "sans-serif",
                     mb: "1rem",
                 }}>
-                    {localWeather.timezone}
+                    {`${geolocation.name}, ${geolocation.state}, ${geolocation.country}`}
                 </Typography>
                 <Typography variant="h4" sx={{
                     fontWeight: "bold",
@@ -295,13 +284,15 @@ const CurrentDetailsTable: React.FC<{ localWeather: LocalWeather }> = observer(
                                     icon: <CompressIcon />,
                                     name: "Pressure",
                                     /** Given in hPa; 1hPa = 0.030 inHg */
-                                    value: `${(localWeather.current.pressure * 0.03).toPrecision(3)} inHg`,
+                                    // value: `${(localWeather.current.pressure * 0.03).toPrecision(3)} inHg`,
+                                    value: `${localWeather.current.pressure} inHg`,
                                 },
                                 {
                                     icon: <VisibilityIcon />,
                                     name: "Visibility",
                                     /** Given in meters, 1 meter = 1/1609 mi */
-                                    value: `${Math.round(localWeather.current.visibility/1609)} mi`,
+                                    // value: `${Math.round(localWeather.current.visibility/1609)} mi`,
+                                    value: `${localWeather.current.visibility} mi`,
                                 },
                             ].map((detail) => {
                                 return (
