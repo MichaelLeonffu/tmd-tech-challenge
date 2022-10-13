@@ -25,7 +25,7 @@ Table of contents
 - [Day 4: Thursday (Testing and finishing up some other work...)](#day-4-thursday-testing-and-finishing-up-some-other-work)
   - [Revisit Cookies](#revisit-cookies)
   - [Auto Populate with Geolocation](#auto-populate-with-geolocation)
-  - [Add MetaData editing](#add-metadata-editing)
+  - [Add MetaData Editing](#add-metadata-editing)
   - [Adapt for two views](#adapt-for-two-views)
   - [Learn and Implement Jest (only if there is time)](#learn-and-implement-jest-only-if-there-is-time)
 - [Day 5: Friday (Extra!)](#day-5-friday-extra)
@@ -186,7 +186,8 @@ If there is time I'll make the UI more interesting
 - Futhermore I ran into an issue where using LatLon isn't a good idea for IDs because: somebody in the same location could
   - have a slightly different LatLon, which causes the program to think this is a new location.
 
-### Add MetaData editing
+### Add MetaData Editing
+- Refactored code: separated out the widgets into their own file each.
 - Remove an item
 - Clear all items from the list
 - Save (autosave) to cookies button (or toggle?)

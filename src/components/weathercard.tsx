@@ -3,7 +3,7 @@ import React from "react";
 import ILocalWeather from "../types/local-weather";
 import IGeoLocation from "../types/geolocation";
 
-import { TenDayForecast, HourlyForecast, CurrentDetailsTable} from "./weatherwidget";
+import { TenDayForecast, HourlyForecast, CurrentDetailsTable } from "./weatherwidget";
 
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
