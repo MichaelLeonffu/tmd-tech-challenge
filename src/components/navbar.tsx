@@ -1,156 +1,52 @@
 import { observer } from "mobx-react";
+import { runInAction } from "mobx";
 import React from "react";
+import { useAppContext } from "../app-context";
 
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
-
-const options: string[] = ["options1", "options2"];
-
-const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(1),
-        width: "auto",
-    },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
-    alignItems: "center",
-    "& .MuiInputBase-input": {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create("width"),
-        width: "100%",
-        [theme.breakpoints.up("sm")]: {
-            width: "20ch",
-            "&:focus": {
-                width: "30ch",
-            },
-        },
-    },
-}));
+import Tooltip from "@mui/material/Tooltip";
+import DeleteIcon from '@mui/icons-material/Delete';
+import Stack from "@mui/material/Stack";
 
 const NavBar: React.FC<{ }> = observer(() => {
 
-    const emptyString: string = "";
-    const [value, setValue] = React.useState(options[0]);
-    const [inputValue, setInputValue] = React.useState(emptyString);
-    const [showDropDown, setShowDownDown] = React.useState(false);
-
-    const [searchContents, setSearchContents] = React.useState(emptyString);
+    const { store } = useAppContext();
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        // edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{
-                            mr: 2,
-                        }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    sx={{
+                        height: "4rem",
+                        marginX: {sm: "3rem", xl: "auto"},
+                        minWidth: {sm: "2rem", xl: "94rem"}
+                    }}
+                >
                     <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{
-                            // flexGrow: 1,
-                            display: { xs: "none", sm: "block" },
-                        }}
+                        variant="h5"
                     >
                         TMDTC
                     </Typography>
-                    {/* <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{
-                            flexGrow: 1,
-                            maxWidth: "96rem",
-                            display: { xs: "none", sm: "block" },
-                        }}
+                    <Tooltip title="Delete All">
+                        <IconButton
+                        aria-label="delete"
+                        onClick={() => {
+                            /** Delete this from the store, same as just removing it from the locationsOrder */
+                            runInAction(() => {
+                                store.locationOrder.clear();
+                            });
+                        }}    
                     >
-                    </Typography> */}
-                    {/* <SearchIcon /> */}
-
-                    {/* <Tooltip
-                        title="Press enter to search!"
-                        placement="bottom"
-                        TransitionComponent={Zoom}
-                        enterDelay={100}
-                        leaveDelay={100}
-                        disableInteractive
-                        arrow
-                    >
-                        <Search sx={{
-                            mr: "auto",
-                        }}>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search City or Zip Code"
-                                inputProps={{ "aria-label": "search" }}
-                                onChange={(event) => {
-                                    setSearchContents(event.target.value)
-                                }}
-                                onKeyDown={(event) => {
-                                    if (event.code === "Enter") {
-                                        console.log("enter pressed");
-                                        console.log("Query: ", searchContents)
-                                    }
-                                }}
-                            />
-                            <SearchDrop
-                                value="options1"
-                                onChange={(event, newValue) => {
-                                    setValue(newValue ? String(newValue) : "");
-                                }}
-                                inputValue={inputValue}
-                                onInputChange={(event, newInputValue) => {
-                                    setInputValue(newInputValue);
-                                }}
-                                id="controllable-states-demo"
-                                options={options}
-                                sx={{
-                                    width: 300,
-                                    display: showDropDown ? "block" : "none",
-                                }}
-                                renderInput={(params) => <TextField {...params} label="Search Organization ..." />}
-                            />
-                        </Search>
-                    </Tooltip> */}
-                </Toolbar>
+                        <DeleteIcon />
+                    </IconButton>
+                    </Tooltip>
+                </Stack>
             </AppBar>
         </Box>
     );

@@ -187,9 +187,13 @@ If there is time I'll make the UI more interesting
   - have a slightly different LatLon, which causes the program to think this is a new location.
 
 ### Add MetaData Editing
+**90 Minutes**
 - Refactored code: separated out the widgets into their own file each.
-- Remove an item
+- Added buttons: [tmdtc-metadata-buttons.html](../public/snapshots/tmdtc-metadata-buttons.html)
+  - ![screenshots/metadata-buttons.png](./screenshots/metadata-buttons.png)
+- Remove an item works. But only if the data is real otherwise the search for locationId fails.
 - Clear all items from the list
+
 - Save (autosave) to cookies button (or toggle?)
 - Move an item up or down in the list (only if there is time)
 - Toggle save on certain locations (default on or off?) (only if there is time)

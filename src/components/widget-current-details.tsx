@@ -1,7 +1,9 @@
 import { observer } from "mobx-react";
+import { runInAction } from "mobx";
 import React from "react";
 import ILocalWeather from "../types/local-weather";
 import IGeolocation from "../types/geolocation";
+import { useAppContext } from "../app-context";
 
 /** UI Elements */
 import Typography from "@mui/material/Typography";
@@ -15,12 +17,22 @@ import Divider from "@mui/material/Divider";
 
 /** Detail Table Icons */
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import ThermostatIcon from '@mui/icons-material/Thermostat';
-import OpacityIcon from '@mui/icons-material/Opacity';
-import CompressIcon from '@mui/icons-material/Compress';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import AirIcon from '@mui/icons-material/Air';
-import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
+import ThermostatIcon from "@mui/icons-material/Thermostat";
+import OpacityIcon from "@mui/icons-material/Opacity";
+import CompressIcon from "@mui/icons-material/Compress";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import AirIcon from "@mui/icons-material/Air";
+import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
+
+import Checkbox from "@mui/material/Checkbox";
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
+// import StarBorderIcon from "@mui/icons-material/StarBorder";
+// import StarIcon from "@mui/icons-material/Star";
 
 /** I should be cascading these styles down */
 // const ALL_BG_COLOR = "rgba(255, 255, 255, 0.95)";
@@ -147,6 +159,8 @@ const generateDetailTable = (localWeather: ILocalWeather, split: boolean) => {
 const CurrentDetailsTable: React.FC<{ localWeather: ILocalWeather, geolocation: IGeolocation }> = observer(
 ({ localWeather, geolocation }) => {
 
+    const { store } = useAppContext();
+
     /** Reference https://weather.com/weather/today/l/6caf363b20330ebd578b326e30c259c895b39fe2a4e4722f745fc3ae18d3acdb */
 
     return (
@@ -155,13 +169,47 @@ const CurrentDetailsTable: React.FC<{ localWeather: ILocalWeather, geolocation: 
             // backgroundColor: {ALL_BG_COLOR},
             // backdropFilter: {ALL_BG_FILTER},
         }}>
-            <Typography variant="h5" sx={{
-                fontWeight: "bold",
-                fontFamily: "sans-serif",
-                mb: "1rem",
-            }}>
-                {`${geolocation.name}, ${geolocation.state}, ${geolocation.country}`}
-            </Typography>
+            <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+            >
+                <Typography variant="h5" noWrap sx={{
+                    fontWeight: "bold",
+                    fontFamily: "sans-serif",
+                    mb: "1rem",
+                }}>
+                    {`${geolocation.name}, ${geolocation.state}, ${geolocation.country}`}
+                </Typography>
+
+                <Box sx={{
+                    /** Makes sure that the icons aren't crushed if text is too long */
+                    justifyContent: "flex-end",
+                    minWidth: "6rem",
+                }}>
+                    {/* <Checkbox
+                        icon={<FavoriteBorder />}
+                        checkedIcon={<Favorite />}
+                        onClick={() => {
+                        }}    
+                    /> */}
+                    <Tooltip title="Delete">
+                        <IconButton
+                            aria-label="delete"
+                            onClick={() => {
+                                /** Delete this from the store, same as just removing it from the locationsOrder */
+                                runInAction(() => {
+                                    const locationId = store.getLocationId({lat: localWeather.lat, lon: localWeather.lon});
+                                    store.locationOrder.delete(locationId);
+                                });
+                            }}    
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+
+            </Stack>
             <Typography variant="h4" sx={{
                 fontWeight: "bold",
                 fontFamily: "sans-serif",
