@@ -20,6 +20,13 @@ import WbCloudyIcon from "@mui/icons-material/WbCloudy";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import ThunderstormIcon from "@mui/icons-material/Thunderstorm";
 import UmbrellaIcon from "@mui/icons-material/Umbrella";
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import MoveUpIcon from '@mui/icons-material/MoveUp';
+import MoveDownIcon from '@mui/icons-material/MoveDown';
 
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import OpacityIcon from '@mui/icons-material/Opacity';
@@ -32,6 +39,8 @@ import Divider from "@mui/material/Divider";
 import { fontFamily } from "@mui/system";
 
 const DAYS_OF_WEEK = "Mon Tue Wed Thu Fri Sat Sun".split(" ");
+const ALL_BG_COLOR = "rgba(255, 255, 255, 0.95)";
+const ALL_BG_FILTER = "blur(64px)";
 
 const aDayInTenDayForcast = function (timezone_offset: number, [dayWeather]: ILocalWeather['daily']) {
 
@@ -91,52 +100,58 @@ const TenDayForecast: React.FC<{ localWeather: ILocalWeather }> = observer(
         /** Extract 10 Day forecast for this weather */
 
         return (
-            <Container disableGutters sx={{
-                p: "1rem",
+            <Paper sx={{
+                backgroundColor: {ALL_BG_COLOR},
+                backdropFilter: {ALL_BG_FILTER},
                 height: "100%",
             }}>
-                <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-around"
-                    gap={1}
-                    spacing={1}
-                    sx={{
-                        mb: "1rem",
-                    }}
-                >
-                    {/* Make this change as the view changes smaller */}
-                    <CalendarMonthIcon />
-                    <Typography
-                        variant="body2"
-                        noWrap={true}
-                    >
-                        10-DAY FORECAST
-                    </Typography>
-                </Stack>
-                <List sx={{
-                    width: "100%",
-                    maxWidth: 360,
-                    // bgcolor: "background.paper",
+                <Container disableGutters sx={{
+                    p: "1rem",
+                    height: "100%",
                 }}>
-                    {/* <Divider component="li" />
-                    <ListItem >
-                        <ListItemIcon>
-                            <WbCloudyIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Tuesday" />
-                        <ListItemText secondary="L: 65° H: 80°" secondaryTypographyProps={
-                            {variant: "body2", fontWeight: "bold", noWrap: true}
-                        } />
-                    </ListItem> */}
-                    {
-                        localWeather.daily.map((dayWeather) => {
-                            return aDayInTenDayForcast(localWeather.timezone_offset, [dayWeather]);
-                        })
-                    }
+                    <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="space-around"
+                        gap={1}
+                        spacing={1}
+                        sx={{
+                            mb: "1rem",
+                        }}
+                    >
+                        {/* Make this change as the view changes smaller */}
+                        <CalendarMonthIcon />
+                        <Typography
+                            variant="body2"
+                            noWrap={true}
+                        >
+                            10-DAY FORECAST
+                        </Typography>
+                    </Stack>
+                    <List sx={{
+                        width: "100%",
+                        maxWidth: 360,
+                        // bgcolor: "background.paper",
+                    }}>
+                        {/* <Divider component="li" />
+                        <ListItem >
+                            <ListItemIcon>
+                                <WbCloudyIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Tuesday" />
+                            <ListItemText secondary="L: 65° H: 80°" secondaryTypographyProps={
+                                {variant: "body2", fontWeight: "bold", noWrap: true}
+                            } />
+                        </ListItem> */}
+                        {
+                            localWeather.daily.map((dayWeather) => {
+                                return aDayInTenDayForcast(localWeather.timezone_offset, [dayWeather]);
+                            })
+                        }
 
-                </List>
-            </Container>
+                    </List>
+                </Container>
+            </Paper>
         );
     }
 );
@@ -146,8 +161,8 @@ const HourlyForecast: React.FC<{ hourlyWeather: ILocalWeather['hourly'] }> = obs
 
         return (
             <Paper sx={{
-                backgroundColor: "rgba(255, 255, 255, 0.25)",
-                backdropFilter: "blur(64px)",
+                backgroundColor: {ALL_BG_COLOR},
+                backdropFilter: {ALL_BG_FILTER},
                 height: "100%",
             }}>
                 <Stack 
@@ -234,8 +249,8 @@ const CurrentDetailsTable: React.FC<{ localWeather: ILocalWeather, geolocation: 
         return (
             <Paper sx={{
                 p: "1rem",
-                backgroundColor: "rgba(255, 255, 255, 0.25)",
-                backdropFilter: "blur(64px)",
+                backgroundColor: {ALL_BG_COLOR},
+                backdropFilter: {ALL_BG_FILTER},
             }}>
                 <Typography variant="h5" sx={{
                     fontWeight: "bold",

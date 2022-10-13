@@ -1,3 +1,4 @@
+import AppApi from "../apis/app";
 import ILatLon from "../types/latlon";
 import ILocalWeather from "../types/local-weather";
 import IGeolocation from "../types/geolocation";
@@ -5,8 +6,9 @@ import LatLon from "../models/latlon";
 import LocalWeather from "../models/local-weather";
 import Geolocation from "../models/geolocation";
 
-import { 
+import {
     action,
+    computed,
     makeObservable,
     observable,
 } from "mobx";
@@ -24,7 +26,7 @@ export default class AppStore {
     /** Locations in order, note: sets are in insertion order; contain no duplicates */
     @observable.deep locationOrder = observable.set<number>();
 
-    constructor() {
+    constructor(private api: AppApi) {
         // makeAutoObservable(this);
         makeObservable(this)
     }
@@ -56,7 +58,7 @@ export default class AppStore {
     /**
      * 
      * @param latLon a ILatLon to search locations for
-     * @returns a LocationId unique to this LatLon or -1 if it doesn't exist
+     * @returns a LocationId unique to this LatLon or -1 if it doesn"t exist
      */
     getLocationId(latLon: ILatLon) {
         const res = Array.from(this.locations.entries()).find(([id, aLatLon]: [number, ILatLon]) => {
@@ -76,14 +78,14 @@ export default class AppStore {
      */
     @action loadLocalWeather(latLon: ILatLon, localWeather: ILocalWeather) {
 
+        /** Make a new locationId if it doesn't exist */
         let locationId = this.getLocationId(latLon);
         if (locationId === -1) {
             locationId = this.locations.size;
             this.locations.set(locationId, new LatLon(latLon));
-            this.localWeathers.set(locationId, new LocalWeather(localWeather));
-        } else {
-            this.localWeathers.set(locationId, new LocalWeather(localWeather));
         }
+
+        this.localWeathers.set(locationId, new LocalWeather(localWeather));
     }
 
     /**
@@ -101,10 +103,9 @@ export default class AppStore {
         if (locationId === -1) {
             locationId = this.locations.size;
             this.locations.set(locationId, new LatLon(latLon));
-            this.geolocations.set(locationId, new Geolocation(geolocation));
-        } else {
-            this.geolocations.set(locationId, new Geolocation(geolocation));
         }
+
+        this.geolocations.set(locationId, new Geolocation(geolocation));
     }
 
     /**
@@ -127,9 +128,74 @@ export default class AppStore {
         if (!valid) {
             console.error("locationOrder: ", locationOrder);
             console.error("locations: ", this.locations);
-            throw 'A locationId does not exist';
+            throw "A locationId does not exist";
         }
         this.locationOrder = observable.set(new Set(locationOrder));
+    }
+
+    /**
+     * 
+     * Queries API using latLon, stores result in localWeathers
+     * 
+     * @param latLon the latLon to search query using the API
+     * 
+     */
+    @action async requestWeather(latLon: ILatLon) {
+        const localWeather: ILocalWeather = await this.api.getLocalWeather(latLon);
+        const geolocation: IGeolocation = await this.api.getGeolocationFromLatLon(latLon);
+        console.log(geolocation);
+        this.loadLocalWeather(latLon, localWeather);
+        this.loadGeolocation(latLon, geolocation);
+    }
+
+    /**
+     * Returns a serialized version of the store designed to fit in a single cookie
+     * (cookies are at least 1024 bytes usually)
+     * 
+     * @returns a string
+     */
+    @computed get serialCookieStore(): string {
+
+        /** Serialized cookie is a list of lat,lon pairs in the order of locationOrder */
+        const serialCookie = Array.from(this.locationOrder).map((locationId: number) => {
+            const aLocation = this.locations.get(locationId);
+            if (!aLocation) {
+                return [];
+            }
+            return [aLocation.lat, aLocation.lon];
+        });
+
+        return String(JSON.stringify(serialCookie));
+    }
+
+    /**
+     * 
+     * Sets the store to the values given in the serialCookie
+     * 
+     * @param serialCookie A serial cookie generated from the pervious method
+     * 
+     */
+    @action storeFromCookies = async (serialCookie: number[][]) => {
+
+        /** Serialized cookie is a list of lat,lon pairs in the order of locationOrder */
+        try {
+            // const cookies: number[][] = JSON.parse(serialCookie);
+            /** The cookie reader already parses it out */
+            const cookies: number[][] = serialCookie;
+
+            for (const locationLatLon of cookies) {
+                console.log("cookielocal", locationLatLon);
+                const latLon = {lat: locationLatLon[0], lon: locationLatLon[1]}
+                await this.requestWeather(latLon);
+
+                /** Add the new location into the order */
+                const locationId = this.getLocationId(latLon);
+                this.locationOrder.add(locationId);
+            };
+
+        } catch (err) {
+            return console.error("Cookie failed to be parsed, skipping cookie. ", err);
+        }
     }
 
 }

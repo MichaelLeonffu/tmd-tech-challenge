@@ -1,7 +1,7 @@
 import axios from "axios";
-import AppStore from "../stores/app";
-
+import IGeoLocation from "../types/geolocation";
 import ILatLon from "../types/latlon";
+import ILocalWeather from "../types/local-weather";
 
 export default class AppApi {
 
@@ -15,9 +15,7 @@ export default class AppApi {
         },
     });
 
-    constructor(private store: AppStore) {}
-
-    async getLocalWeather(latLon: ILatLon) {
+    async getLocalWeather(latLon: ILatLon): Promise<ILocalWeather> {
         const res = await this.client.get('/data/3.0/onecall', {
             params: {
                 /** TODO: should these be strings? */
@@ -26,10 +24,10 @@ export default class AppApi {
                 units: "imperial",
             }
         });
-        this.store.loadLocalWeather(latLon, res.data);
+        return res.data;
     }
 
-    async getGeolocationFromLatLon(latLon: ILatLon) {
+    async getGeolocationFromLatLon(latLon: ILatLon): Promise<IGeoLocation> {
         const res = await this.client.get('/geo/1.0/reverse', {
             params: {
                 /** TODO: should these be strings? */
@@ -38,7 +36,8 @@ export default class AppApi {
                 limit: 5,
             }
         });
-        this.store.loadGeolocation(latLon, res.data[0]);
+        /** The api returns an array of size 1 usually. */
+        return res.data[0];
     }
 
     /**
@@ -47,7 +46,7 @@ export default class AppApi {
      * 
      * @param cityStateCountry City name, state code (only for the US) and country code divided by comma. Please use ISO 3166 country codes.
      */
-    async getGeolocationByCity(cityStateCountry: String) {
+    async getGeolocationByCity(cityStateCountry: String): Promise<IGeoLocation[]> {
         const res = await this.client.get('/geo/1.0/direct', {
             params: {
                 /** TODO: should these be strings? */
@@ -56,7 +55,5 @@ export default class AppApi {
             }
         });
         return res.data;
-        // const latLon = {lat: res.data[0].lat, lon: res.data[0].lon}
-        // this.store.loadGeolocation(latLon, res.data[0]);
     }
 }

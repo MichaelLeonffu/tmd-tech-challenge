@@ -174,13 +174,13 @@ const SearchBar: React.FC<{ }> = observer(() => {
                                             ( async () => {
                                                 try {
                                                     /** Do both API requests */
-                                                    await api.getGeolocationFromLatLon(coords);
-                                                    await api.getLocalWeather(coords);
+                                                    await store.requestWeather(coords);
 
                                                     /** Add the location to the list */
                                                     const newId = store.getLocationId(coords);
-                                                    // store.locationOrder;
                                                     store.reorderLocations([newId, ...store.locationOrder]);
+                                                    console.log(store.locationOrder);
+
                                                 } finally {
 
                                                 }

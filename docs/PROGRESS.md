@@ -23,10 +23,11 @@ Table of contents
   - [User Input Features 330](#user-input-features-330)
   - [Actually Searching and Adding to the list](#actually-searching-and-adding-to-the-list)
 - [Day 4: Thursday (Testing and finishing up some other work...)](#day-4-thursday-testing-and-finishing-up-some-other-work)
-  - [Add MetaData editing](#add-metadata-editing)
   - [Revisit Cookies](#revisit-cookies)
+  - [Auto Populate with Geolocation](#auto-populate-with-geolocation)
+  - [Add MetaData editing](#add-metadata-editing)
   - [Adapt for two views](#adapt-for-two-views)
-  - [Learn and Implement Jest](#learn-and-implement-jest)
+  - [Learn and Implement Jest (only if there is time)](#learn-and-implement-jest-only-if-there-is-time)
 - [Day 5: Friday (Extra!)](#day-5-friday-extra)
   - [Actually I don't think I'll work on this on Friday. I have plans.](#actually-i-dont-think-ill-work-on-this-on-friday-i-have-plans)
 
@@ -171,17 +172,25 @@ If there is time I'll make the UI more interesting
 
 ## Day 4: Thursday (Testing and finishing up some other work...)
 
-### Add MetaData editing
-- Save (autosave) to cookies button (or toggle?)
-- Remove an item, move an item up or down in the list
-- Clear all items from the list
-
 ### Revisit Cookies
-- Create input search fields to populate the components with data
+**90 Minutes**
+- Cookies work now; it saves to cookies on each time store changes.
+- It reads from cookies when browser opens up.
+- There is a bug where reloading too quickly causes the store to only partially update, and each time it does the cookies update. This means that sometimes if the store is not done loading the cookies; some items are lost. I could use a flag or maybe defer loading the UI until after the store is done processing the cookies.
+- Unfortunately I had to change a lot of code; but for the better; API is pure now (not relying on store).
+
+### Auto Populate with Geolocation
+- Revisited
+
+### Add MetaData editing
+- Toggle save on certain locations (default on or off?) (only if there is time)
+- Save (autosave) to cookies button (or toggle?)
+- Clear all items from the list
+- Remove an item, move an item up or down in the list (only if there is time)
 
 ### Adapt for two views
 
-### Learn and Implement Jest
+### Learn and Implement Jest (only if there is time)
 
 ## Day 5: Friday (Extra!)
 

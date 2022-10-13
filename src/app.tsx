@@ -1,85 +1,48 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { reaction } from "mobx";
+import { useCookies } from "react-cookie";
 import AppContext from "./app-context";
 import AppStore from "./stores/app";
 import AppApi from "./apis/app";
-
-import { CookiesProvider } from "react-cookie";
-import { useCookies } from "react-cookie";
-import { autorun, values, entries} from "mobx";
-
 import HomePage from "./pages/home";
 
-const store = new AppStore();
-const api = new AppApi(store);
-
-const deferred = {
-    setCookieDeferred: (value: string): void => {},
-    getCookieDeferred: (): string => {return "no value yet"}
-}
+const api = new AppApi();
+const store = new AppStore(api);
 
 function App() {
 
-    const [cookie, setCookie, removeCookie] = useCookies(["store"]);
+    /** Create a cookie store */
+    const [cookie, setCookie] = useCookies(["store"]);
 
-    // function handleCookie() {
-    //     setCookie("user", "larypie", {
-    //         path: "/"
-    //     });
-    // }
+    /** Load any initial cookies, ONLY RUN ONCE on mount. Wait why does this run twice */
+    useEffect(() => {
+        console.log("Initial cookies", cookie.store);
+        (async () =>{
+            /** Causes some issues since it thinks it's not an "action" changing an observable */
+            store.storeFromCookies(cookie.store);
+        })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-    deferred.setCookieDeferred = (value) => {
-        removeCookie("store")
-        setCookie("store", value, {path: '/'});
-    }
+    /** Save to Cookies on change in store */
+    reaction(() => store.serialCookieStore, serialCookieStore => {
 
-    deferred.getCookieDeferred = () => {
-        return cookie.store;
-    }
+        console.log("store changed: ", serialCookieStore);
+        setCookie("store", serialCookieStore);
+    });
 
     return (
         <div>
-            <CookiesProvider>
-                {/* <div>
-                    <h1>React Cookies</h1>
-                    <button onClick={handleCookie}>Set Cookie</button>
-                </div> */}
-                <AppContext.Provider value={{ store, api }}>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/*" element={<HomePage />} />
-                        </Routes>
-                    </BrowserRouter>
-                </AppContext.Provider>
-            </CookiesProvider>
+            <AppContext.Provider value={{ store, api }}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/*" element={<HomePage />} />
+                    </Routes>
+                </BrowserRouter>
+            </AppContext.Provider>
         </div>
     );
 }
-
-/** Save to Cookies on change */
-autorun(() =>  {
-    return;
-    /** I know this isn't the best code; but I need to move on from this */
-    values(store.localWeathers);
-    values(store.geolocations);
-    values(store.locations);
-    values(store.locationOrder);
-
-    console.log("store changed: ", values(store));
-
-    const simple = {lol: "easy", count: store.localWeathers.size};
-    const cop = {
-        localWeathers: entries(store.localWeathers),
-        // geolocations: entries(store.geolocations),
-        // locations: entries(store.locations),
-        // locationOrder: entries(store.locationOrder),
-    }
-
-    let save = simple;
-
-    console.log("stringed", save);
-    console.log("ssss", JSON.stringify(save));
-    deferred.setCookieDeferred(JSON.stringify(save));
-    console.log("mycookies", deferred.getCookieDeferred());
-});
 
 export default App;
