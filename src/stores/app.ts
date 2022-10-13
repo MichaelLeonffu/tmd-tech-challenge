@@ -11,6 +11,7 @@ import {
     computed,
     makeObservable,
     observable,
+    runInAction,
 } from "mobx";
 
 
@@ -135,17 +136,21 @@ export default class AppStore {
 
     /**
      * 
-     * Queries API using latLon, stores result in localWeathers
+     * Queries API using latLon, stores result in localWeathers;
+     * Automatically adds location to locationOrder
      * 
      * @param latLon the latLon to search query using the API
      * 
      */
-    @action async requestWeather(latLon: ILatLon) {
+    @action requestWeather = async (latLon: ILatLon) => {
         const localWeather: ILocalWeather = await this.api.getLocalWeather(latLon);
         const geolocation: IGeolocation = await this.api.getGeolocationFromLatLon(latLon);
-        console.log(geolocation);
-        this.loadLocalWeather(latLon, localWeather);
-        this.loadGeolocation(latLon, geolocation);
+
+        runInAction(() => {
+            this.loadLocalWeather(latLon, localWeather);
+            this.loadGeolocation(latLon, geolocation);
+            this.locationOrder.add(this.getLocationId(latLon));
+        });
     }
 
     /**
@@ -184,13 +189,8 @@ export default class AppStore {
             const cookies: number[][] = serialCookie;
 
             for (const locationLatLon of cookies) {
-                console.log("cookielocal", locationLatLon);
                 const latLon = {lat: locationLatLon[0], lon: locationLatLon[1]}
-                await this.requestWeather(latLon);
-
-                /** Add the new location into the order */
-                const locationId = this.getLocationId(latLon);
-                this.locationOrder.add(locationId);
+                this.requestWeather(latLon);
             };
 
         } catch (err) {

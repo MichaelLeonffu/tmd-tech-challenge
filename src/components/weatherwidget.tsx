@@ -1,9 +1,9 @@
 import { observer } from "mobx-react";
 import React from "react";
-import LocalWeather from "../models/local-weather";
 import ILocalWeather from "../types/local-weather";
 import IGeolocation from "../types/geolocation";
 
+/** UI Elements */
 import Container from "@mui/material/Container";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Typography from "@mui/material/Typography";
@@ -14,29 +14,28 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Paper from "@mui/material/Paper";
 import Image from "mui-image";
+import Divider from "@mui/material/Divider";
 
 import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
-import WbCloudyIcon from "@mui/icons-material/WbCloudy";
+// import WbCloudyIcon from "@mui/icons-material/WbCloudy";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import ThunderstormIcon from "@mui/icons-material/Thunderstorm";
-import UmbrellaIcon from "@mui/icons-material/Umbrella";
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import MoveUpIcon from '@mui/icons-material/MoveUp';
-import MoveDownIcon from '@mui/icons-material/MoveDown';
+// import ThunderstormIcon from "@mui/icons-material/Thunderstorm";
+// import UmbrellaIcon from "@mui/icons-material/Umbrella";
+// import StarIcon from '@mui/icons-material/Star';
+// import StarBorderIcon from '@mui/icons-material/StarBorder';
+// import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+// import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+// import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+// import MoveUpIcon from '@mui/icons-material/MoveUp';
+// import MoveDownIcon from '@mui/icons-material/MoveDown';
 
+/** Detail Table Icons */
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import OpacityIcon from '@mui/icons-material/Opacity';
 import CompressIcon from '@mui/icons-material/Compress';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import AirIcon from '@mui/icons-material/Air';
 import NightlightRoundIcon from '@mui/icons-material/NightlightRound';
-
-import Divider from "@mui/material/Divider";
-import { fontFamily } from "@mui/system";
 
 const DAYS_OF_WEEK = "Mon Tue Wed Thu Fri Sat Sun".split(" ");
 const ALL_BG_COLOR = "rgba(255, 255, 255, 0.95)";

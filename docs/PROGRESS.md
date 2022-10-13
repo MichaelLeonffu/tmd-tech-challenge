@@ -180,13 +180,18 @@ If there is time I'll make the UI more interesting
 - Unfortunately I had to change a lot of code; but for the better; API is pure now (not relying on store).
 
 ### Auto Populate with Geolocation
-- Revisited
+**60 Minutes**
+- This wasn't too hard to get the location but I also took this time to solve some bugs namely the one I mentioned previously.
+- I realized I had created race conditions and wasn't really using mobx properly with awaits/async on API calls.
+- Futhermore I ran into an issue where using LatLon isn't a good idea for IDs because: somebody in the same location could
+  - have a slightly different LatLon, which causes the program to think this is a new location.
 
 ### Add MetaData editing
-- Toggle save on certain locations (default on or off?) (only if there is time)
-- Save (autosave) to cookies button (or toggle?)
+- Remove an item
 - Clear all items from the list
-- Remove an item, move an item up or down in the list (only if there is time)
+- Save (autosave) to cookies button (or toggle?)
+- Move an item up or down in the list (only if there is time)
+- Toggle save on certain locations (default on or off?) (only if there is time)
 
 ### Adapt for two views
 

@@ -37,14 +37,14 @@ const WeatherCard: React.FC<{ localWeather: ILocalWeather, geolocation: IGeoLoca
                     <Grid container sx={{
                         height: "100%",
                     }}>
-                        <Grid xs={4}>
+                        <Grid xs={4} item={true}>
                             <Container disableGutters sx={{
                                 height: "100%",
                             }}>
                                 <TenDayForecast localWeather={localWeather}/>
                             </Container>
                         </Grid>
-                        <Grid xs={8}>
+                        <Grid xs={8} item={true}>
                             <Stack gap={2} sx={{
                                 pl: "1rem",
                                 justifyContent: "space-between",
