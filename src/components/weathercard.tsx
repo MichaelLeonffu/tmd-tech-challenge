@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
 
 
 /** Not sure what is the best way to do this part... Typing and using good practices... */
@@ -20,6 +21,10 @@ import Card from "@mui/material/Card";
 
 const WeatherCard: React.FC<{ localWeather: ILocalWeather, geolocation: IGeoLocation }> = observer(
     ({ localWeather, geolocation }) => {
+
+        const RenderedCurrentDetailsTable = <CurrentDetailsTable localWeather={localWeather} geolocation={geolocation}/>;
+        const RenderedHourlyForecast = <HourlyForecast hourlyWeather={localWeather.hourly} />;
+        const RenderedTenDayForecast = <TenDayForecast localWeather={localWeather}/>;
 
         return (
             <Container maxWidth="lg" disableGutters sx={{
@@ -33,29 +38,46 @@ const WeatherCard: React.FC<{ localWeather: ILocalWeather, geolocation: IGeoLoca
                     backdropFilter: "blur(64px)",
                     borderRadius: "16px",
 
-                    height: "38rem",
+                    minHeight: "38rem",
                 }}>
-                    <Grid container sx={{
-                        height: "100%",
-                    }}>
-                        <Grid xs={4} item={true}>
-                            <Container disableGutters sx={{
-                                height: "100%",
-                            }}>
-                                <TenDayForecast localWeather={localWeather}/>
-                            </Container>
+                    <Box
+                        sx={{display: {xs: "block", md: "none"},}}
+                    >
+                        <Stack gap={2} sx={{
+                            pl: "1rem",
+                            justifyContent: "space-between",
+                            height: "100%",
+                        }}>
+                            {RenderedCurrentDetailsTable}
+                            {RenderedHourlyForecast}
+                            {RenderedTenDayForecast}
+                        </Stack>
+                    </Box>
+                    <Box
+                        sx={{display: {xs: "none", md: "block"},}}
+                    >
+                        <Grid container sx={{
+                            height: "100%",
+                        }}>
+                            <Grid xs={4} item={true}>
+                                <Container disableGutters sx={{
+                                    height: "100%",
+                                }}>
+                                    {RenderedTenDayForecast}
+                                </Container>
+                            </Grid>
+                            <Grid xs={8} item={true}>
+                                <Stack gap={2} sx={{
+                                    pl: "1rem",
+                                    justifyContent: "space-between",
+                                    height: "100%",
+                                }}>
+                                    {RenderedCurrentDetailsTable}
+                                    {RenderedHourlyForecast}
+                                </Stack>
+                            </Grid>
                         </Grid>
-                        <Grid xs={8} item={true}>
-                            <Stack gap={2} sx={{
-                                pl: "1rem",
-                                justifyContent: "space-between",
-                                height: "100%",
-                            }}>
-                                <CurrentDetailsTable localWeather={localWeather} geolocation={geolocation}/>
-                                <HourlyForecast hourlyWeather={localWeather.hourly} />
-                            </Stack>
-                        </Grid>
-                    </Grid>
+                    </Box>
                 </Card>
             </Container>
         );

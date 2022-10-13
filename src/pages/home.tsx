@@ -17,6 +17,7 @@ const HomePage = observer(() => {
                 backgroundImage: "linear-gradient(45deg, #81d4fa, #b6ffff, #ffe97d, #ffce84)",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "fill",
+                minHeight: "100vh",
             }}
         >
             <NavBar/>

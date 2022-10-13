@@ -234,7 +234,8 @@ const SearchBar: React.FC<{ }> = observer(() => {
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
-                            placeholder="Search City or Zip Code"
+                            // placeholder="Search City or Zip Code"
+                            placeholder="Search City"
                             inputProps={{ "aria-label": "search" }}
                             onFocus={() => {
                                 setSearchFocus(true);

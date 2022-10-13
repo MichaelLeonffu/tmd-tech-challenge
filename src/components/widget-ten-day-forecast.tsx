@@ -108,7 +108,7 @@ const TenDayForecast: React.FC<{ localWeather: ILocalWeather }> = observer(
                     </Stack>
                     <List sx={{
                         width: "100%",
-                        maxWidth: 360,
+                        maxWidth: {sx: 1000, md: 360},
                         // bgcolor: "background.paper",
                     }}>
                         {/* <Divider component="li" />

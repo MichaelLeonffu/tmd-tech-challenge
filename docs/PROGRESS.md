@@ -26,7 +26,7 @@ Table of contents
   - [Revisit Cookies](#revisit-cookies)
   - [Auto Populate with Geolocation](#auto-populate-with-geolocation)
   - [Add MetaData Editing](#add-metadata-editing)
-  - [Adapt for two views](#adapt-for-two-views)
+  - [Test Building and Deploying](#test-building-and-deploying)
   - [Learn and Implement Jest (only if there is time)](#learn-and-implement-jest-only-if-there-is-time)
 - [Day 5: Friday (Extra!)](#day-5-friday-extra)
   - [Actually I don't think I'll work on this on Friday. I have plans.](#actually-i-dont-think-ill-work-on-this-on-friday-i-have-plans)
@@ -196,11 +196,15 @@ If there is time I'll make the UI more interesting
 - Near me indicator
 - Fix Scrolling, fixed background.
 
+### Test Building and Deploying
+**30 Minutes**
+- Upload to personal server.
+- Make sure all features still work.
+- Adapt for two views.
+
 - Save (autosave) to cookies button (or toggle?)
 - Move an item up or down in the list (only if there is time)
 - Toggle save on certain locations (default on or off?) (only if there is time)
-
-### Adapt for two views
 
 ### Learn and Implement Jest (only if there is time)
 
