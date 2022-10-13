@@ -5,6 +5,9 @@
 This is a small web app that uses [OpenWeather API](https://openweathermap.org/api) in a React application.
 The app will **show current and forecasted weather**.
 
+(Desktop only; availability subject to change)
+Demo: [michaelleonffu.com](https://michaelleonffu.com)
+
 ## Core features
 
 - Use react hooks not classes

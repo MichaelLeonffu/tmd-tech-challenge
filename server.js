@@ -58,7 +58,7 @@ apiRoutes.use("/openweatherapi/*", async (req, res, next) => {
     const fullUrl = "https://api.openweathermap.org/" + req.params[0] + query;
 
     try {
-        // const owaRes = await axios.get(fullUrl);
+        const owaRes = await axios.get(fullUrl);
         /** So that I don't spam API calls */
         let data = {}
         switch (req.params[0]) {
@@ -73,9 +73,9 @@ apiRoutes.use("/openweatherapi/*", async (req, res, next) => {
                 break;
         }
 
-        const owaRes = {
-            data: data
-        };
+        // const owaRes = {
+        //     data: data
+        // };
         res.json(owaRes.data);
     } catch (err) {
         /** Axios throws error if the response isn't a good code */
