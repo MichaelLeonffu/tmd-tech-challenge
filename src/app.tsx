@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
-import { reaction } from "mobx";
+import { reaction, runInAction } from "mobx";
 import { useCookies } from "react-cookie";
 import AppContext from "./app-context";
 import AppStore from "./stores/app";
@@ -52,7 +52,11 @@ function App() {
             /** May cause a race condition: */
             console.log("attempting to find weather for your area: ", latLon);
 
-            store.requestWeather(latLon);
+            /** Track that is the user's location */
+            runInAction(() => {
+                store.requestWeather(latLon);
+                store.myLocationLatLon = latLon;
+            });
         });
 
         /** Load any initial cookies, ONLY RUN ONCE on mount. Wait why does this run twice */

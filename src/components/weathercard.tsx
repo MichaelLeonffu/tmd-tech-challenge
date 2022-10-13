@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 
+
 /** Not sure what is the best way to do this part... Typing and using good practices... */
 // interface Props {
 //     children: React.ReactNode

@@ -5,19 +5,28 @@ import NavBar from "../components/navbar";
 import SearchBar from "../components/searchbar";
 import WeatherCard from "../components/weathercard";
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 
 const HomePage = observer(() => {
 
     const { store } = useAppContext();
 
     return (
-        <div>
+        <Box
+            sx={{
+                backgroundImage: "linear-gradient(45deg, #81d4fa, #b6ffff, #ffe97d, #ffce84)",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "fill",
+            }}
+        >
             <NavBar/>
             <Container sx={{height: "1rem"}} />
             <SearchBar />
             <Container sx={{
                 rowGap: "4rem",
                 mt: "4rem",
+                maxHeight: "100%",
+                overflow: "auto",
             }}>
                 {
                     Array.from(store.locationOrder).map((locationId: number) => {
@@ -36,7 +45,7 @@ const HomePage = observer(() => {
                     })
                 }
             </Container>
-        </div>
+        </Box>
     );
 });
 

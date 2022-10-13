@@ -27,6 +27,9 @@ export default class AppStore {
     /** Locations in order, note: sets are in insertion order; contain no duplicates */
     @observable.deep locationOrder = observable.set<number>();
 
+    /** Track which location is near the user */
+    @observable myLocationLatLon: ILatLon = {lat: -1, lon: -1};
+
     constructor(private api: AppApi) {
         // makeAutoObservable(this);
         makeObservable(this)

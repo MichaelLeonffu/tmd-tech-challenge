@@ -193,6 +193,8 @@ If there is time I'll make the UI more interesting
   - ![screenshots/metadata-buttons.png](./screenshots/metadata-buttons.png)
 - Remove an item works. But only if the data is real otherwise the search for locationId fails.
 - Clear all items from the list
+- Near me indicator
+- Fix Scrolling, fixed background.
 
 - Save (autosave) to cookies button (or toggle?)
 - Move an item up or down in the list (only if there is time)

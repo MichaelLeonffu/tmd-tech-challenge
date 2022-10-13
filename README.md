@@ -19,6 +19,8 @@ The app will **show current and forecasted weather**.
 
 Things I may want to do but might not have the time for:
 - Customizable weather panel per user's preference
+- Star locations to save in cookies
+- Reorder locations (drag and drop)
 
 ## Running this app:
 
