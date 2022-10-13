@@ -4,6 +4,8 @@ import { useAppContext } from "../app-context";
 
 import IGeoLocation from "../types/geolocation";
 
+import { runInAction } from "mobx";
+
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
@@ -115,11 +117,30 @@ const SearchBar: React.FC<{ }> = observer(() => {
      * */
     const [waitingForRes, setWaitingForRes] = React.useState(true);
 
+    /**
+     * Waiting for the weather data query after a button is pressed in the menu
+     */
+    const [waitingForWeatherData, setWaitingForWeatherData] = React.useState(false);
+
     const arrayOfGeolocationType: IGeoLocation[] = [];
     const [serachQueryResults, setSerachQueryResults] = React.useState(arrayOfGeolocationType);
 
 
     const searchResults = function() {
+
+        /** If weather data is pending */
+        if(waitingForWeatherData) {
+            return (
+                <Container disableGutters>
+                <Divider />
+                <List>
+                    <ListItem>
+                        <ListItemText primary="Waiting for OpenWeatherAPI..." />
+                    </ListItem>
+                </List>
+            </Container>
+            );
+        }
 
         /** Don't show anything if not in focus */
         if (!searchFocus) {
@@ -171,20 +192,19 @@ const SearchBar: React.FC<{ }> = observer(() => {
                                         onClick={() => {
                                             console.log("clicked", location.lat, location.lon);
                                             const coords = {lat: location.lat, lon: location.lon};
-                                            ( async () => {
-                                                try {
-                                                    /** Do both API requests */
-                                                    await store.requestWeather(coords);
+                                            setWaitingForWeatherData(true);
 
-                                                    /** Add the location to the list */
-                                                    const newId = store.getLocationId(coords);
-                                                    store.reorderLocations([newId, ...store.locationOrder]);
-                                                    console.log(store.locationOrder);
+                                            runInAction(() =>{
+                                                ( async () => {
+                                                    try {
 
-                                                } finally {
+                                                        await store.requestWeather(coords);
+                                                    } finally {
+                                                        setWaitingForWeatherData(false);
+                                                    }
+                                                })()
+                                            });
 
-                                                }
-                                            })()
                                         }}
                                     />
                                 </ListItemButton>

@@ -8,10 +8,9 @@ export default class AppApi {
     /** Setup the client, later anything can use this setup to make queries to the API server */
     client = axios.create({
         baseURL: "/api/openweatherapi",
-        timeout: 4000,
+        timeout: 10000,
         params: {
             exclude: "alert,minutely",
-            appid: "Something really secret"
         },
     });
 

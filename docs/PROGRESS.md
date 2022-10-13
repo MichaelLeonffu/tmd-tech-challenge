@@ -27,10 +27,8 @@ Table of contents
   - [Auto Populate with Geolocation](#auto-populate-with-geolocation)
   - [Add MetaData Editing](#add-metadata-editing)
   - [Test Building and Deploying](#test-building-and-deploying)
-  - [If there is time...](#if-there-is-time)
-  - [Learn and Implement Jest (only if there is time)](#learn-and-implement-jest-only-if-there-is-time)
-- [Day 5: Friday (Extra!)](#day-5-friday-extra)
-  - [Actually I don't think I'll work on this on Friday. I have plans.](#actually-i-dont-think-ill-work-on-this-on-friday-i-have-plans)
+- [v1.1](#v11)
+- [Future:](#future)
 
 ## Day 1: Monday (Base App)
 **Roughly 5 hours**
@@ -203,15 +201,14 @@ If there is time I'll make the UI more interesting
 - Make sure all features still work.
 - Adapt for two views.
 
-### If there is time...
+## v1.1
+- Fixed bug where slow openweatherapi would timeout too quickly (4s -> 10s) timout.
+- Added display to show when waiting for openweatherapi.
+- Fixed title to show TMDTC; Fixed sort order.
+
+## Future:
+
 - Save (autosave) to cookies button (or toggle?)
 - Move an item up or down in the list (only if there is time)
 - Toggle save on certain locations (default on or off?) (only if there is time)
-
-### Learn and Implement Jest (only if there is time)
-
-## Day 5: Friday (Extra!)
-
-### Actually I don't think I'll work on this on Friday. I have plans.
-
-But that being said if I had more time I know what I would work on.
+- Learn and Implement Jest (only if there is time)

@@ -30,7 +30,7 @@ const HomePage = observer(() => {
                 overflow: "auto",
             }}>
                 {
-                    Array.from(store.locationOrder).map((locationId: number) => {
+                    Array.from(store.locationOrder).reverse().map((locationId: number) => {
                         const localWeather = store.localWeathers.get(locationId);
                         const geolocation = store.geolocations.get(locationId);
                         if (!localWeather || !geolocation) {
